@@ -104,14 +104,37 @@ header.top{
 .btn.danger-ghost{background:none;color:var(--ink3);font-size:13px;font-weight:500;padding:8px}
 .btn.bad{background:var(--bad);color:#fff}
 
-/* ============ hero aube ============ */
-.hero{padding:0;overflow:hidden}
-.sky{display:block;width:100%;height:auto;background:linear-gradient(180deg,var(--sky1),var(--sky2))}
-.hero-body{padding:2px 18px 18px;margin-top:-6px;display:flex;flex-direction:column;gap:12px}
-.dayline{display:flex;align-items:baseline;gap:10px}
-.daynum{font-family:var(--display);font-weight:700;font-size:64px;line-height:1;letter-spacing:.01em;font-variant-numeric:tabular-nums}
-.dayof{font-family:var(--display);font-size:22px;color:var(--ink3);font-weight:600}
+/* ============ héros / avatar ============ */
+.heroCard{padding:0;overflow:hidden;position:relative}
+.aura{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:24px 18px 14px;
+  background:
+    radial-gradient(ellipse 65% 60% at 50% 62%, var(--aura,rgba(229,160,79,.22)), transparent 75%),
+    linear-gradient(180deg,var(--sky1),var(--sky2));
+}
+canvas.px{image-rendering:pixelated;image-rendering:crisp-edges;display:block}
+.stageName{font-family:var(--display);font-weight:700;font-size:30px;letter-spacing:.06em;text-transform:uppercase;margin-top:8px}
+.stageSub{font-size:12.5px;color:var(--ink2);text-align:center;max-width:280px;text-wrap:balance}
+.hero-body{padding:12px 18px 18px;display:flex;flex-direction:column;gap:12px}
+.dayline{display:flex;align-items:baseline;gap:8px}
+.daynum{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+.dayof{font-family:var(--display);font-size:19px;color:var(--ink3);font-weight:600}
 .endnote{margin-left:auto;text-align:right}
+.evoNext{display:flex;align-items:center;gap:12px;background:var(--surface2);border-radius:12px;padding:10px 12px}
+.evoNext canvas{opacity:.55;filter:grayscale(1)}
+.meter{height:6px;border-radius:3px;background:var(--ring-track);overflow:hidden;margin-top:6px}
+.meter i{display:block;height:100%;border-radius:3px;background:var(--accent);transition:width .4s ease}
+
+/* ============ quêtes ============ */
+.quest{display:flex;align-items:center;gap:12px;background:var(--surface2);border-radius:12px;padding:11px 13px;width:100%;text-align:left}
+.quest .qc{width:26px;height:26px;border-radius:9px;border:2px solid var(--ink3);flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px}
+.quest.on .qc{background:var(--good);border-color:var(--good)}
+.quest .qt{font-size:14px;font-weight:600}
+.quest.on .qt{color:var(--ink2);text-decoration:line-through}
+.quest .qk{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+.quest .qxp{margin-left:auto;font-size:12px;font-weight:700;color:var(--ink3);font-variant-numeric:tabular-nums}
+.quest.on .qxp{color:var(--good)}
 
 /* ============ stat tiles ============ */
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -122,8 +145,13 @@ header.top{
 
 /* ============ citation ============ */
 .quote{border-left:3px solid var(--accent);padding-left:14px}
-.quote p{font-size:16.5px;font-style:italic;line-height:1.45;text-wrap:balance}
+.quote p{font-size:15.5px;font-style:italic;line-height:1.45;text-wrap:balance}
 .quote .small{margin-top:6px;font-style:normal}
+
+/* ============ raisons visuelles ============ */
+.reasonCards{display:flex;flex-direction:column;gap:8px}
+.reasonCards .r{background:var(--surface);border-radius:14px;box-shadow:var(--shadow);padding:13px 15px;font-size:14.5px;font-weight:600;border-left:3px solid var(--accent);display:flex;gap:10px;align-items:center}
+.reasonCards .r .ic{flex:none;opacity:.9}
 
 /* ============ bénéfices ============ */
 .bene{display:flex;flex-direction:column;gap:10px}
@@ -134,12 +162,6 @@ header.top{
 .bene-item.now .bene-t{color:var(--accent-ink)}
 .bene-t{font-weight:700;font-size:14px}
 .bene-item p{font-size:13.5px;color:var(--ink2)}
-
-/* ============ récompense ============ */
-.reward-next{display:flex;gap:14px;align-items:center}
-.reward-ic{width:46px;height:46px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;flex:none;color:var(--accent-ink)}
-.meter{height:6px;border-radius:3px;background:var(--ring-track);overflow:hidden;margin-top:8px}
-.meter i{display:block;height:100%;border-radius:3px;background:var(--accent);transition:width .4s ease}
 
 /* ============ calendrier ============ */
 .cal{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
@@ -158,6 +180,15 @@ header.top{
 .legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--ink2)}
 .legend i{width:11px;height:11px;border-radius:4px;display:inline-block;vertical-align:-1px;margin-right:5px}
 
+/* ============ lignée d'évolution ============ */
+.evoRoad{display:flex;flex-direction:column;gap:6px}
+.evoStep{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:12px;background:var(--surface2)}
+.evoStep.locked{opacity:.45}
+.evoStep.locked canvas{filter:grayscale(1)}
+.evoStep.now{box-shadow:inset 0 0 0 2px var(--accent)}
+.evoStep .en{font-weight:700;font-size:13.5px}
+.evoStep .ed{font-size:11.5px;color:var(--ink3)}
+
 /* ============ badges ============ */
 .badges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .badge{background:var(--surface2);border-radius:14px;padding:12px 8px;text-align:center;opacity:.45;filter:grayscale(.7)}
@@ -166,26 +197,21 @@ header.top{
 .badge .n{font-size:11.5px;font-weight:700;margin-top:4px}
 .badge .d{font-size:10.5px;color:var(--ink3)}
 
-/* ============ listes (raisons, récompenses, protections, journal) ============ */
+/* ============ listes / protections ============ */
 .list{display:flex;flex-direction:column;gap:8px}
 .li{display:flex;align-items:center;gap:11px;background:var(--surface2);border-radius:12px;padding:11px 13px;font-size:14px}
 .li .x{color:var(--ink3);padding:4px 6px;font-size:15px}
-.check{display:flex;align-items:flex-start;gap:11px;background:var(--surface2);border-radius:12px;padding:12px 13px;cursor:pointer}
-.check input{width:19px;height:19px;accent-color:var(--good);margin-top:1px;flex:none}
-.check span{font-size:14px}
-.check.on span{color:var(--ink2);text-decoration:line-through}
+.shield-item{background:var(--surface2);border-radius:12px;overflow:hidden}
+.shield-head{display:flex;align-items:flex-start;gap:11px;padding:12px 13px;cursor:pointer}
+.shield-head input{width:20px;height:20px;accent-color:var(--good);margin-top:1px;flex:none}
+.shield-head .st{font-size:14px;font-weight:600}
+.shield-item.on .st{color:var(--ink2);text-decoration:line-through}
+.shield-guide{padding:0 13px 12px 44px;font-size:13px;color:var(--ink2)}
+.shield-guide code{background:var(--surface);border-radius:6px;padding:1px 7px;font-size:12.5px;color:var(--accent-ink);word-break:break-all}
+.gbtn{font-size:12px;font-weight:700;color:var(--accent-ink);padding:2px 0;margin-top:2px}
 .addrow{display:flex;gap:8px}
 .addrow input{flex:1;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:11px 13px;font-size:14px}
 .addrow button{background:var(--accent-soft);color:var(--accent-ink);border-radius:12px;padding:0 16px;font-weight:700}
-
-.mood-row{display:flex;gap:8px;justify-content:space-between}
-.mood-b{flex:1;aspect-ratio:1;max-width:60px;border-radius:14px;background:var(--surface2);font-size:24px;transition:transform .1s}
-.mood-b.on{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
-.mood-b:active{transform:scale(.92)}
-textarea.jr{width:100%;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:14px;min-height:74px;resize:vertical}
-.entry{background:var(--surface2);border-radius:12px;padding:11px 13px}
-.entry .small{display:flex;justify-content:space-between}
-.entry p{font-size:14px;margin-top:3px;white-space:pre-wrap}
 
 /* ============ nav ============ */
 nav{
@@ -204,7 +230,7 @@ nav{
 }
 .sos-b:active{transform:scale(.94)}
 
-/* ============ overlays (SOS / modals / onboarding) ============ */
+/* ============ overlays ============ */
 .ov{position:fixed;inset:0;z-index:60;background:var(--bg);display:none;overflow-y:auto}
 .ov.on{display:block}
 .ov-in{max-width:480px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:22px 20px calc(24px + env(safe-area-inset-bottom));gap:16px}
@@ -242,6 +268,12 @@ nav{
 .pact input{width:100%;background:none;border:none;border-bottom:2px solid var(--line);padding:8px 2px;font-size:20px;font-family:var(--display);font-weight:600}
 .pact input:focus{border-color:var(--accent);outline:none}
 
+/* évolution : célébration */
+.evoFlash{position:fixed;inset:0;z-index:75;background:var(--bg);display:none;align-items:center;justify-content:center}
+.evoFlash.on{display:flex}
+.evoFlash .in{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:24px;animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+
 /* toast + confetti */
 .toast{
   position:fixed;left:50%;bottom:calc(104px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);
@@ -250,8 +282,6 @@ nav{
 }
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 #fx{position:fixed;inset:0;pointer-events:none;z-index:70}
-
-.spark{display:block;width:100%;height:auto}
 .divider{height:1px;background:var(--line);margin:4px 0}
 .section-t{display:flex;align-items:baseline;justify-content:space-between;margin:6px 2px -4px}
 </style>
@@ -259,14 +289,18 @@ nav{
 <div class="app">
   <header class="top">
     <div class="wordmark">Re<b>prise</b></div>
-    <div class="lvl" id="lvlChip">—</div>
+    <div class="lvl"><span class="xp num" id="xpChip">0 pts</span></div>
   </header>
   <main>
 
-    <!-- ================= AUJOURD'HUI ================= -->
-    <section class="screen on" id="scr-today">
-      <div class="card hero">
-        <svg class="sky" id="skySvg" viewBox="0 0 400 150" role="img" aria-label="Progression du défi : arc de 30 soleils"></svg>
+    <!-- ================= HÉROS ================= -->
+    <section class="screen on" id="scr-hero">
+      <div class="card heroCard">
+        <div class="aura" id="auraBox">
+          <canvas class="px" id="heroPx" width="120" height="160" aria-label="Ton personnage"></canvas>
+          <div class="stageName" id="stageName">L'Ombre</div>
+          <div class="stageSub" id="stageSub"></div>
+        </div>
         <div class="hero-body">
           <div class="dayline">
             <span class="daynum" id="dayNum">1</span>
@@ -274,31 +308,24 @@ nav{
             <span class="endnote small" id="endNote"></span>
           </div>
           <button class="btn" id="checkinBtn">Valider ma journée</button>
+          <div class="evoNext" id="evoNext">
+            <canvas class="px" id="nextPx" width="36" height="48"></canvas>
+            <div class="grow">
+              <div style="font-weight:700;font-size:13.5px" id="evoLabel"></div>
+              <div class="meter"><i id="evoMeter" style="width:0%"></i></div>
+            </div>
+          </div>
           <button class="btn danger-ghost" id="relapseLink">J'ai flanché aujourd'hui…</button>
         </div>
       </div>
 
-      <div class="tiles">
-        <div class="tile"><div class="v num" id="stStreak">0<small> j</small></div><div class="k">Sans rechute</div></div>
-        <div class="tile"><div class="v num" id="stUrges">0</div><div class="k">Envies surmontées</div></div>
-        <div class="tile"><div class="v num" id="stTime">0<small> h</small></div><div class="k">Temps récupéré</div></div>
-        <div class="tile"><div class="v num" id="stXp">0</div><div class="k">Points d'effort</div></div>
-      </div>
-
-      <div class="card quote">
-        <p id="quoteTxt"></p>
-        <div class="small" id="quoteWho"></div>
-      </div>
-
-      <div class="card">
-        <div class="eyebrow">En ce moment dans ta tête et ton corps</div>
-        <div class="bene" id="beneList" style="margin-top:12px"></div>
-      </div>
+      <div class="section-t"><span class="h2">Quêtes du jour</span><span class="small" id="questScore"></span></div>
+      <div class="list" id="questList"></div>
 
       <div class="card" id="nextRewardCard">
         <div class="eyebrow">Prochaine récompense</div>
-        <div class="reward-next" style="margin-top:10px">
-          <div class="reward-ic">
+        <div class="row" style="margin-top:10px">
+          <div style="width:46px;height:46px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;flex:none;color:var(--accent-ink)">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 7v14M12 7s-1.5-4-4.5-4C5 3 4.5 5 5 6c.6 1.2 4 1 7 1zM12 7s1.5-4 4.5-4C19 3 19.5 5 19 6c-.6 1.2-4 1-7 1z"/></svg>
           </div>
           <div class="grow">
@@ -309,13 +336,28 @@ nav{
         </div>
       </div>
 
-      <div class="card" id="frictionNudge" style="display:none">
+      <div class="tiles">
+        <div class="tile"><div class="v num" id="stStreak">0<small> j</small></div><div class="k">Sans rechute</div></div>
+        <div class="tile"><div class="v num" id="stUrges">0</div><div class="k">Envies surmontées</div></div>
+        <div class="tile"><div class="v num" id="stTime">0<small> h</small></div><div class="k">Temps récupéré</div></div>
+        <div class="tile"><div class="v num" id="stQuests">0</div><div class="k">Quêtes accomplies</div></div>
+      </div>
+
+      <div class="section-t"><span class="h2">Pourquoi je me bats</span></div>
+      <div class="reasonCards" id="reasonCards"></div>
+
+      <div class="card quote">
+        <p id="quoteTxt"></p>
+        <div class="small" id="quoteWho"></div>
+      </div>
+
+      <div class="card" id="shieldNudge" style="display:none">
         <div class="row">
           <div class="grow">
-            <div style="font-weight:700;font-size:14.5px">Blinde ton environnement</div>
-            <div class="small" id="frictionCount"></div>
+            <div style="font-weight:700;font-size:14.5px">⚠️ Ton bouclier a des failles</div>
+            <div class="small" id="shieldCount"></div>
           </div>
-          <button class="chip pick" id="goFrictions">Voir la liste</button>
+          <button class="chip pick" id="goShield">Blinder</button>
         </div>
       </div>
     </section>
@@ -336,7 +378,13 @@ nav{
         <div class="tile"><div class="v num" id="pgBest">0<small> j</small></div><div class="k">Meilleure série</div></div>
         <div class="tile"><div class="v num" id="pgRate">—</div><div class="k">Journées tenues</div></div>
         <div class="tile"><div class="v num" id="pgSos">0</div><div class="k">SOS gagnés</div></div>
-        <div class="tile"><div class="v num" id="pgLvl">1</div><div class="k">Niveau</div></div>
+        <div class="tile"><div class="v num" id="pgQuests">0</div><div class="k">Quêtes</div></div>
+      </div>
+      <div class="section-t"><span class="h2">Ta lignée d'évolution</span></div>
+      <div class="card"><div class="evoRoad" id="evoRoad"></div></div>
+      <div class="card">
+        <div class="eyebrow">Ce qui change en toi</div>
+        <div class="bene" id="beneList" style="margin-top:12px"></div>
       </div>
       <div class="section-t"><span class="h2">Badges</span><span class="small" id="badgeCount"></span></div>
       <div class="badges" id="badgeGrid"></div>
@@ -344,23 +392,17 @@ nav{
       <div class="list" id="rewardList"></div>
     </section>
 
-    <!-- ================= JOURNAL ================= -->
-    <section class="screen" id="scr-journal">
+    <!-- ================= BOUCLIER ================= -->
+    <section class="screen" id="scr-shield">
       <div class="card">
-        <div class="eyebrow">Humeur du jour</div>
-        <div class="mood-row" style="margin-top:12px" id="moodRow"></div>
-        <svg class="spark" id="moodSpark" viewBox="0 0 400 70" style="margin-top:14px" role="img" aria-label="Humeur des 14 derniers jours"></svg>
+        <div class="h2">Rends la rechute presque impossible.</div>
+        <p class="muted" style="margin-top:8px">Une page web ne peut pas bloquer les autres sites — mais <b>ton téléphone le peut</b>. Ces verrous se mettent en place en ~10 minutes, une seule fois, et travaillent pour toi 24 h sur 24. Chaque verrou activé : <b style="color:var(--accent-ink)">+15 pts</b>.</p>
       </div>
+      <div class="list" id="shieldList"></div>
       <div class="card">
-        <div class="eyebrow">Décharge ce que t'as en tête</div>
-        <textarea class="jr" id="jrText" style="margin-top:10px" placeholder="Déclencheurs, victoires, pensées… écris librement."></textarea>
-        <button class="btn ghost" id="jrSave" style="margin-top:10px">Ajouter au journal</button>
+        <div class="eyebrow">Le principe poka-yoke</div>
+        <p class="muted" style="margin-top:8px">Ne compte pas sur ta volonté à 23 h un soir de déprime — elle sera absente. Compte sur les obstacles que le toi de maintenant, lucide et motivé, a mis en place. Chaque seconde de friction entre l'impulsion et l'écran te donne le temps d'ouvrir le SOS.</p>
       </div>
-      <div class="card">
-        <div class="eyebrow">Pourquoi je fais ça</div>
-        <div class="list" id="reasonListRO" style="margin-top:10px"></div>
-      </div>
-      <div class="list" id="jrList"></div>
     </section>
 
     <!-- ================= RÉGLAGES ================= -->
@@ -372,11 +414,6 @@ nav{
           <input id="reasonNew" placeholder="Ajouter une raison…" maxlength="90">
           <button id="reasonAdd" aria-label="Ajouter">+</button>
         </div>
-      </div>
-      <div class="card">
-        <div class="eyebrow">Protections (poka-yoke)</div>
-        <p class="small" style="margin-top:6px">Chaque friction entre toi et la tentation compte. Coche ce qui est en place — chaque protection donne +10 points.</p>
-        <div class="list" id="frictionList" style="margin-top:10px"></div>
       </div>
       <div class="card">
         <div class="eyebrow">Mes récompenses aux jalons</div>
@@ -393,18 +430,18 @@ nav{
 
   <nav>
     <div class="nav-in">
-      <button class="nv on" data-scr="today">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="14" r="4.5"/><path d="M12 5.5V3M5.6 8.6 4 7m14.4 1.6L20 7M3 14H1.5m21 0H21M4 19h16"/></svg>
-        Aujourd'hui
+      <button class="nv on" data-scr="hero">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="3.8"/><path d="M5 20.5c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>
+        Héros
       </button>
       <button class="nv" data-scr="progress">
         <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><path d="m14.5 17 2 2 4-4.2"/></svg>
         Progrès
       </button>
       <div><button class="sos-b" id="sosOpen" aria-label="SOS — envie forte">SOS</button></div>
-      <button class="nv" data-scr="journal">
-        <svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 4v13a3 3 0 0 0 3 3M9.5 9h6M9.5 13h4"/></svg>
-        Journal
+      <button class="nv" data-scr="shield">
+        <svg viewBox="0 0 24 24"><path d="M12 3 5 5.8v5.4c0 4.5 3 8.2 7 9.8 4-1.6 7-5.3 7-9.8V5.8z"/><path d="m9 11.5 2.2 2.2L15.5 9"/></svg>
+        Bouclier
       </button>
       <button class="nv" data-scr="settings">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M21.2 12h-3M5.8 12h-3M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1M18.5 18.5l-2.1-2.1M7.6 7.6 5.5 5.5"/></svg>
@@ -418,7 +455,7 @@ nav{
 <div class="ov" id="sosOv">
   <div class="ov-in">
     <div class="ov-top">
-      <span class="eyebrow" id="sosStepLbl">Protocole anti-envie</span>
+      <span class="eyebrow">Protocole anti-envie</span>
       <button class="close" id="sosClose">Fermer</button>
     </div>
 
@@ -456,8 +493,8 @@ nav{
     <div class="center" id="sos5" style="display:none">
       <div style="font-size:52px">🏄</div>
       <div class="ob-title">Vague surfée.</div>
-      <p class="muted" style="max-width:300px">+15 points d'effort. Chaque envie surmontée recâble ton cerveau un peu plus. T'es plus fort qu'il y a 10 minutes.</p>
-      <button class="btn" id="sosDone" style="max-width:300px">Retour au tableau de bord</button>
+      <p class="muted" style="max-width:300px">+15 points. Chaque envie surmontée recâble ton cerveau un peu plus. T'es plus fort qu'il y a 10 minutes.</p>
+      <button class="btn" id="sosDone" style="max-width:300px">Retour à mon héros</button>
     </div>
   </div>
 </div>
@@ -471,7 +508,7 @@ nav{
     </div>
     <div class="center">
       <div class="ob-title">Un écart n'efface pas ton progrès.</div>
-      <p class="muted" style="max-width:320px">Tes points, tes badges et tout le chemin parcouru restent. On note ce qui s'est passé pour mieux te protéger la prochaine fois.</p>
+      <p class="muted" style="max-width:320px">Ton personnage garde tout ce qu'il a gagné. On note ce qui s'est passé pour mieux te protéger la prochaine fois.</p>
       <div style="width:100%;max-width:330px;text-align:left">
         <div class="eyebrow" style="margin-bottom:8px">Qu'est-ce qui a déclenché ?</div>
         <div class="chips" style="justify-content:flex-start" id="rlTriggers"></div>
@@ -485,20 +522,17 @@ nav{
 <!-- ================= ONBOARDING ================= -->
 <div class="ov" id="obOv">
   <div class="ov-in">
-    <div class="steps" id="obSteps"><i class="on"></i><i></i><i></i><i></i></div>
+    <div class="steps" id="obSteps"><i class="on"></i><i></i><i></i></div>
 
     <div class="center" id="ob1">
-      <svg width="130" height="76" viewBox="0 0 130 76" aria-hidden="true">
-        <path d="M14 66 A52 52 0 0 1 116 66" fill="none" stroke="var(--ring-track)" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 8"/>
-        <circle cx="30" cy="42" r="9" fill="var(--accent)"/>
-      </svg>
-      <div class="ob-title">30 levers de soleil.<br>Un mois pour reprendre le contrôle.</div>
-      <p class="muted" style="max-width:310px">Pause complète de porno et d'apps de rencontre pendant 30 jours. Cette app est ton coach : validation quotidienne, bouton SOS pour les envies, récompenses aux jalons, et la preuve noir sur blanc de ce que tu y gagnes.</p>
-      <button class="btn" data-obgo="2" style="max-width:300px">Je suis prêt</button>
+      <canvas class="px" id="obPx" width="96" height="128"></canvas>
+      <div class="ob-title">Ton personnage commence dans l'ombre.<br>À toi de le faire évoluer.</div>
+      <p class="muted" style="max-width:310px">30 jours sans porno ni apps de rencontre. Chaque journée tenue fait grandir ton héros : de l'Ombre jusqu'au Souverain. Quêtes quotidiennes, bouton SOS pour les envies, récompenses réelles aux jalons.</p>
+      <button class="btn" data-obgo="2" style="max-width:300px">Créer mon héros</button>
     </div>
 
     <div id="ob2" style="display:none;flex-direction:column;gap:14px">
-      <div class="ob-title">Pourquoi tu fais ça ?</div>
+      <div class="ob-title">Pourquoi tu te bats ?</div>
       <p class="muted">Tes raisons seront ton bouclier dans les moments durs. Choisis celles qui résonnent, ajoute les tiennes.</p>
       <div class="chips" style="justify-content:flex-start" id="obReasonSug"></div>
       <div class="addrow">
@@ -510,15 +544,8 @@ nav{
     </div>
 
     <div id="ob3" style="display:none;flex-direction:column;gap:14px">
-      <div class="ob-title">Rends la rechute difficile.</div>
-      <p class="muted">Le poka-yoke : au lieu de compter sur ta volonté, mets des obstacles entre toi et la tentation. Coche ce que tu peux faire dès maintenant — tu pourras compléter plus tard.</p>
-      <div class="list" id="obFrictionList"></div>
-      <button class="btn" data-obgo="4">Continuer</button>
-    </div>
-
-    <div id="ob4" style="display:none;flex-direction:column;gap:14px">
       <div class="ob-title">Scelle ton pacte.</div>
-      <p class="muted">Des récompenses t'attendent aux jours 3, 7, 14, 21 et 30 — tu pourras les personnaliser dans les réglages.</p>
+      <p class="muted">Des récompenses réelles t'attendent aux jours 3, 7, 14, 21 et 30. Après, va dans <b>Bouclier</b> : 10 minutes pour verrouiller ton téléphone pour de bon.</p>
       <div class="pact">
         <p style="font-size:15px;line-height:1.55">Je m'engage envers moi-même : pendant <b>30 jours</b>, à partir d'aujourd'hui, je fais une pause complète de porno et d'apps de rencontre. Quand l'envie frappe, j'ouvre le SOS avant de céder. Si je tombe, je me relève le jour même.</p>
         <div class="sig">
@@ -531,12 +558,23 @@ nav{
   </div>
 </div>
 
+<!-- ================= ÉVOLUTION ================= -->
+<div class="evoFlash" id="evoFlash">
+  <div class="in">
+    <div class="eyebrow">Évolution !</div>
+    <canvas class="px" id="evoPx" width="144" height="192"></canvas>
+    <div class="ob-title" id="evoName"></div>
+    <p class="muted" style="max-width:300px" id="evoDesc"></p>
+    <button class="btn" id="evoOk" style="max-width:260px">Continuer</button>
+  </div>
+</div>
+
 <!-- ================= VICTOIRE ================= -->
 <div class="ov" id="winOv">
   <div class="ov-in">
     <div class="center">
-      <div style="font-size:64px">🌅</div>
-      <div class="ob-title">30 levers de soleil.<br>Défi complété.</div>
+      <canvas class="px" id="winPx" width="144" height="192"></canvas>
+      <div class="ob-title">Le Souverain.<br>Défi complété.</div>
       <p class="muted" style="max-width:320px" id="winStats"></p>
       <p class="muted" style="max-width:320px">Va chercher ta grosse récompense — tu l'as gagnée. Et si tu veux ancrer ça pour de bon, repars pour un tour.</p>
       <button class="btn" id="winAgain" style="max-width:300px">Repartir pour 30 jours</button>
@@ -551,14 +589,152 @@ nav{
 <script>
 "use strict";
 /* ================================================================
-   REPRISE — défi personnel 30 jours. Tout est local (localStorage).
+   REPRISE v2 — RPG d'évolution personnelle. Tout est local.
+   Un seul intrant obligatoire par jour : valider sa journée.
    ================================================================ */
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => [...document.querySelectorAll(s)];
 const KEY = "reprise-v1";
 const DURATION = 30;
-const MIN_PER_DAY = 40; // estimation de temps récupéré par journée tenue
+const MIN_PER_DAY = 40;
 
+/* ---------- SPRITES 12×16 (pixel art) ---------- */
+const PAL = { k:"#241d2e", s:"#e6b48c", h:"#5d3f28", w:"#ffffff", m:"#b9c2d0", n:"#8d97a8",
+              g:"#e8b04f", r:"#b5473a", p:"#8a6642", a:"#ffd98a", b:"#7a5c3e", c:"#56718f", o:"#2e3242" };
+const GREY = { k:"#33384a", s:"#767c8e", h:"#565c6e", w:"#9aa1b3", m:"#767c8e", n:"#666c7e",
+               g:"#767c8e", r:"#666c7e", p:"#565c6e", a:"#767c8e", b:"#4a4f60", c:"#4a4f60", o:"#33384a" };
+const SPRITES = [
+{ min:0, name:"L'Ombre", sub:"Encore dans le brouillard. Tout commence par un premier jour.", aura:"rgba(120,125,146,.18)", pal:GREY, grid:[
+"............",
+"...hhhhh....",
+"..hhhhhhh...",
+"..hssssss...",
+"..hswssws...",
+"...ssssss...",
+"....ssss....",
+"...bbbbbb...",
+"..sbbbbbbs..",
+"..sbbbbbbs..",
+"...bbbbbb...",
+"...bbbbbb...",
+"....b..b....",
+"....b..b....",
+"....k..k....",
+"...kk..kk..."]},
+{ min:1, name:"L'Éveillé", sub:"Les couleurs reviennent. Tu as ouvert les yeux.", aura:"rgba(229,160,79,.16)", pal:PAL, grid:[
+"............",
+"...hhhhh....",
+"..hhhhhhh...",
+"..hssssss...",
+"..hswssws...",
+"...ssssss...",
+"....ssss....",
+"...bbbbbb...",
+"..sbbbbbbs..",
+"..sbbbbbbs..",
+"...bbbbbb...",
+"...bbbbbb...",
+"....b..b....",
+"....b..b....",
+"....k..k....",
+"...kk..kk..."]},
+{ min:3, name:"L'Apprenti", sub:"Trois jours. Le bâton en main, tu apprends à tenir.", aura:"rgba(229,160,79,.2)", pal:{...PAL, b:"#56718f"}, grid:[
+"............",
+"...hhhhh....",
+"..hhhhhhh...",
+"..hssssss.g.",
+"..hswssws.g.",
+"...ssssss.p.",
+"....ssss..p.",
+"...bbbbbb.p.",
+"..sbbbbbbsp.",
+"..sbbbbbbsp.",
+"...gggggg.p.",
+"...bbbbbb.p.",
+"....b..b..p.",
+"....b..b..p.",
+"....k..k....",
+"...kk..kk..."]},
+{ min:7, name:"Le Combattant", sub:"Une semaine. Épée et bouclier : tu sais te défendre.", aura:"rgba(229,160,79,.24)", pal:{...PAL, b:"#4f7a63"}, grid:[
+"............",
+"...hhhhh....",
+"..hhhhhhh...",
+"..hssssss...",
+"..hswssws.m.",
+"...ssssss.m.",
+"....ssss..m.",
+"...bbbbbb.m.",
+"mpsbbbbbbsm.",
+"mpsbbbbbbsg.",
+"mp.bbbbbb.p.",
+"...bbbbbb...",
+"....b..b....",
+"....b..b....",
+"....k..k....",
+"...kk..kk..."]},
+{ min:14, name:"Le Chevalier", sub:"Deux semaines. L'armure a remplacé le doute.", aura:"rgba(185,194,208,.22)", pal:{...PAL, b:"#b5473a"}, grid:[
+"............",
+"...mmmmm....",
+"..mmmmmmm...",
+"..msssssm...",
+"..mswssws.m.",
+"...ssssss.m.",
+"....nnnn..m.",
+"...mmmmmm.m.",
+"mpsmmbbmmsm.",
+"mpsmmbbmmsg.",
+"mp.mmbbmm.p.",
+"...mmbbmm...",
+"....m..m....",
+"....m..m....",
+"....k..k....",
+"...kk..kk..."]},
+{ min:21, name:"Le Champion", sub:"Trois semaines. La cape du vainqueur, la lame dorée.", aura:"rgba(229,160,79,.3)", pal:{...PAL, b:"#b5473a"}, grid:[
+"............",
+"...mmmmm....",
+"..mmmmmmm...",
+"..msssssm...",
+"..mswssws.g.",
+".rrssssss.g.",
+".r..nnnn..g.",
+".rrmmmmmm.g.",
+".rrsmmbbmsg.",
+".rrsmmbbmsg.",
+".rr.mmbbm.p.",
+".rr.mmbbm...",
+".r..m..m....",
+".r..m..m....",
+"....k..k....",
+"...kk..kk..."]},
+{ min:30, name:"Le Souverain", sub:"30 jours. Maître de toi-même. Personne ne peut te l'enlever.", aura:"rgba(255,217,138,.35)", pal:{...PAL, b:"#e8b04f"}, grid:[
+"...g.g.g...a",
+"a..ggggg....",
+"..hhhhhhh...",
+"..hssssss..a",
+"..hswssws.g.",
+".rrssssss.g.",
+".r..bbbb..g.",
+".rrbbbbbb.g.",
+"arrsbbmmbsg.",
+".rrsbbmmbsg.",
+".rr.bbbbb.p.",
+".rr.bbbbb..a",
+".r..b..b....",
+"a...b..b....",
+"....k..k....",
+"...kk..kk..."]},
+];
+function stageIdx(cleanDays){ let i=0; SPRITES.forEach((s,j)=>{ if(cleanDays>=s.min) i=j; }); return i; }
+function drawSprite(canvas, idx){
+  const sp=SPRITES[idx], ctx=canvas.getContext("2d");
+  const px=Math.floor(Math.min(canvas.width/12, canvas.height/16));
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const ox=(canvas.width-12*px)/2, oy=(canvas.height-16*px)/2;
+  sp.grid.forEach((row,y)=>{ for(let x=0;x<12;x++){ const ch=row[x];
+    if(ch && ch!=="."){ ctx.fillStyle=sp.pal[ch]||"#f0f"; ctx.fillRect(ox+x*px,oy+y*px,px,px); } }});
+}
+
+/* ---------- contenu ---------- */
 const QUOTES = [
   ["La discipline, c'est choisir entre ce que tu veux maintenant et ce que tu veux le plus.", "Abraham Lincoln (attribué)"],
   ["Tu ne t'élèves pas au niveau de tes objectifs, tu tombes au niveau de tes systèmes.", "James Clear"],
@@ -579,7 +755,6 @@ const QUOTES = [
   ["La motivation te fait commencer, l'habitude te fait continuer.", "Jim Ryun"],
   ["Ce que tu fuis te suit ; ce que tu affrontes s'efface.", "Proverbe"],
   ["Personne n'a jamais regretté d'avoir tenu bon.", "Reprise"],
-  ["La cellule la plus solide est celle dont on ne voit pas les barreaux. Aujourd'hui, tu as vu les tiens.", "Reprise"],
 ];
 
 const BENEFITS = [
@@ -590,13 +765,45 @@ const BENEFITS = [
   { from:22, to:30, t:"Jours 22–30 · L'ancrage", p:"La nouvelle habitude s'installe. Ton image de toi change : tu es quelqu'un qui tient parole." },
 ];
 
-const DEFAULT_FRICTIONS = [
-  "Apps de rencontre supprimées du téléphone",
-  "Bloqueur de contenu activé (mode restreint, DNS famille ou app dédiée)",
-  "Téléphone hors de la chambre la nuit (réveil séparé)",
-  "Pas de cellulaire au lit, ni le soir ni le matin",
-  "Un ami de confiance est au courant du défi",
-  "Plan anti-ennui écrit : 3 choses à faire quand ça frappe",
+/* Quêtes connexes — construire la vie qui remplace l'écran (25 ans) */
+const QUESTS = {
+  "Corps":[
+    "30 min d'entraînement (gym, course, sport)",
+    "20 pompes, là, maintenant",
+    "10 000 pas dehors",
+    "Douche froide — 1 minute complète",
+    "15 min d'étirements ou de mobilité",
+  ],
+  "Esprit":[
+    "Lire 10 pages d'un livre",
+    "Méditer 10 min (ou juste respirer en silence)",
+    "Zéro réseaux sociaux avant midi",
+    "Coucher avant 23 h ce soir",
+    "15 min d'apprentissage : langue, code, skill",
+  ],
+  "Vie":[
+    "Cuisiner un vrai repas (pas de livraison)",
+    "30 min sur ton projet perso",
+    "Ranger ton espace 15 min",
+    "Régler LA tâche que tu repousses",
+    "15 min sur ton budget / tes finances",
+  ],
+  "Social":[
+    "Appeler un ami ou la famille (voix, pas texto)",
+    "Parler à une personne nouvelle aujourd'hui",
+    "Proposer une activité concrète à quelqu'un",
+    "Faire un compliment sincère en personne",
+  ],
+};
+const QCATS = Object.keys(QUESTS);
+
+const SHIELDS = [
+  { id:"ios", label:"iPhone : bloquer les sites adultes", guide:"Réglages → Temps d'écran → Restrictions relatives au contenu et à la confidentialité → Contenu web → <b>Limiter les sites web pour adultes</b>. Niveau expert : demande à un ami de choisir le code Temps d'écran à ta place." },
+  { id:"android", label:"Android : DNS privé familial", guide:"Réglages → Réseau et Internet → DNS privé → Nom d'hôte : <code>family.adguard-dns.com</code>. Gratuit, bloque le contenu adulte dans toutes les apps et tous les navigateurs." },
+  { id:"dns", label:"Wi-Fi maison / ordi : DNS familial", guide:"Dans les réglages du routeur ou de l'ordi, mets le DNS CleanBrowsing Family : <code>185.228.168.168</code> et <code>185.228.169.168</code> — ou Cloudflare Family : <code>1.1.1.3</code> et <code>1.0.0.3</code>." },
+  { id:"apps", label:"Apps de rencontre supprimées (et verrouillées)", guide:"Supprime-les complètement, pas juste déconnecté. Sur iPhone, bloque la réinstallation : Temps d'écran → Restrictions → Achats iTunes et App Store → Installation d'apps : <b>Non</b>." },
+  { id:"nuit", label:"Téléphone hors de la chambre la nuit", guide:"Charge ton cell dans la cuisine, prends un réveil à 15 $. La grande majorité des rechutes arrivent au lit — tard le soir ou au réveil. Coupe le terrain de chasse." },
+  { id:"allie", label:"Un allié au courant du défi", guide:"Dis-le à un ami de confiance et donne-lui ton code de restrictions. Le simple fait qu'il puisse te demander « pis, ton défi ? » multiplie tes chances." },
 ];
 
 const DEFAULT_REWARDS = [
@@ -615,25 +822,23 @@ const REASON_SUGGESTIONS = [
   "Un cerveau qui m'appartient",
   "Devenir l'homme que je veux être",
 ];
+const REASON_ICONS = ["⚔️","⚡","🤝","🔥","🧠","👑","🛡️","🏔️"];
 
 const TRIGGERS = ["Ennui","Stress","Solitude","Insomnie","Alcool","Réseaux sociaux","Autre"];
 
-const LEVELS = [
-  [0,"Éveil"],[50,"Apprenti"],[130,"Discipliné"],[240,"Résolu"],[380,"Guerrier"],[560,"Maître de soi"],[800,"Souverain"]
-];
-
 const BADGES = [
-  { id:"d1",  ic:"🌄", n:"Premier lever",  d:"1 jour tenu",        test:(s,m)=>m.bestStreak>=1 },
-  { id:"d3",  ic:"🔥", n:"L'étincelle",    d:"3 jours d'affilée",  test:(s,m)=>m.bestStreak>=3 },
-  { id:"d7",  ic:"🛡️", n:"Une semaine",    d:"7 jours d'affilée",  test:(s,m)=>m.bestStreak>=7 },
-  { id:"d14", ic:"⚔️", n:"Mi-parcours",    d:"14 jours d'affilée", test:(s,m)=>m.bestStreak>=14 },
-  { id:"d21", ic:"🏔️", n:"L'habitude",     d:"21 jours d'affilée", test:(s,m)=>m.bestStreak>=21 },
-  { id:"d30", ic:"🌅", n:"Souverain",      d:"Défi de 30 jours complété", test:(s,m)=>m.bestStreak>=30 },
-  { id:"s1",  ic:"🏄", n:"Surfeur",        d:"1 envie surmontée au SOS",   test:(s)=>s.sos.filter(x=>x.outcome==="won").length>=1 },
-  { id:"s5",  ic:"🌊", n:"Maître des vagues", d:"5 envies surmontées",     test:(s)=>s.sos.filter(x=>x.outcome==="won").length>=5 },
-  { id:"s10", ic:"⚓", n:"Imprenable",     d:"10 envies surmontées",       test:(s)=>s.sos.filter(x=>x.outcome==="won").length>=10 },
-  { id:"f",   ic:"🔒", n:"Forteresse",     d:"Toutes les protections en place", test:(s)=>s.frictions.length>0 && s.frictions.every(f=>f.done) },
-  { id:"j5",  ic:"✍️", n:"Lucide",         d:"5 entrées de journal",       test:(s)=>s.journal.length>=5 },
+  { id:"d1",  ic:"🌄", n:"Premier pas",    d:"1 journée tenue",      test:(s,m)=>m.clean>=1 },
+  { id:"d3",  ic:"🔥", n:"L'étincelle",    d:"3 journées tenues",    test:(s,m)=>m.clean>=3 },
+  { id:"d7",  ic:"🗡️", n:"Combattant",     d:"7 journées tenues",    test:(s,m)=>m.clean>=7 },
+  { id:"d14", ic:"⚔️", n:"Chevalier",      d:"14 journées tenues",   test:(s,m)=>m.clean>=14 },
+  { id:"d21", ic:"🏔️", n:"Champion",       d:"21 journées tenues",   test:(s,m)=>m.clean>=21 },
+  { id:"d30", ic:"👑", n:"Souverain",      d:"Défi de 30 jours complété", test:(s,m)=>m.clean>=30 },
+  { id:"s1",  ic:"🏄", n:"Surfeur",        d:"1 envie surmontée au SOS",  test:(s)=>s.sos.filter(x=>x.outcome==="won").length>=1 },
+  { id:"s5",  ic:"🌊", n:"Maître des vagues", d:"5 envies surmontées",    test:(s)=>s.sos.filter(x=>x.outcome==="won").length>=5 },
+  { id:"s10", ic:"⚓", n:"Imprenable",     d:"10 envies surmontées",      test:(s)=>s.sos.filter(x=>x.outcome==="won").length>=10 },
+  { id:"f",   ic:"🔒", n:"Forteresse",     d:"Tous les verrous du Bouclier", test:(s)=>s.frictions.length>0 && s.frictions.every(f=>f.done) },
+  { id:"q10", ic:"🎯", n:"Actif",          d:"10 quêtes accomplies",      test:(s,m)=>m.quests>=10 },
+  { id:"q30", ic:"🏹", n:"Machine",        d:"30 quêtes accomplies",      test:(s,m)=>m.quests>=30 },
   { id:"ph",  ic:"🐦", n:"Phénix",         d:"Revenu valider le lendemain d'une rechute", test:(s)=>phoenix(s) },
 ];
 
@@ -641,11 +846,23 @@ const BADGES = [
 let state = null;
 const fresh = () => ({
   onboarded:false, name:"", startDate:dkey(new Date()), duration:DURATION,
-  reasons:[], frictions:DEFAULT_FRICTIONS.map((label,i)=>({id:i,label,done:false})),
+  reasons:[], frictions:SHIELDS.map(sh=>({id:sh.id,done:false})),
   rewards:DEFAULT_REWARDS.map(r=>({ ...r, claimed:false })),
-  days:{}, sos:[], journal:[], moods:{}, xp:0, completed:0, sealedAt:null,
+  days:{}, sos:[], quests:{}, xp:0, completed:0, sealedAt:null, lastStage:0,
 });
-function load(){ try{ const raw=localStorage.getItem(KEY); state = raw ? Object.assign(fresh(), JSON.parse(raw)) : fresh(); }catch(e){ state = fresh(); } }
+function load(){
+  try{
+    const raw=localStorage.getItem(KEY);
+    state = raw ? Object.assign(fresh(), JSON.parse(raw)) : fresh();
+    // migration v1 → v2 : protections re-basées sur les nouveaux verrous
+    if(!state.frictions.length || state.frictions[0].id===0 || state.frictions[0].label){
+      const oldDone = (state.frictions||[]).filter(f=>f.done).length;
+      state.frictions = SHIELDS.map((sh,i)=>({id:sh.id, done:i<oldDone}));
+    }
+    if(!state.quests) state.quests={};
+    if(state.lastStage===undefined) state.lastStage=stageIdx(metricsRaw().clean);
+  }catch(e){ state = fresh(); }
+}
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
 
 /* ---------- dates ---------- */
@@ -657,8 +874,7 @@ function dayNumber(){ const ms = fromKey(today()) - fromKey(state.startDate); re
 const fmtDate = (k)=> fromKey(k).toLocaleDateString("fr-CA",{day:"numeric",month:"long"});
 
 /* ---------- métriques ---------- */
-function metrics(){
-  const dn = Math.min(dayNumber(), state.duration);
+function metricsRaw(){
   let streak=0, bestStreak=0, run=0, clean=0, relapse=0;
   for(let i=1;i<=state.duration;i++){
     const k=addDays(state.startDate,i-1);
@@ -667,18 +883,19 @@ function metrics(){
     else if(st==="relapse"){ run=0; relapse++; }
     else if(k<today()){ run=0; }
   }
-  // série courante : jours "clean" consécutifs en remontant (aujourd'hui optionnel)
   let k=today(); if((state.days[k]||{}).status!=="clean") k=addDays(k,-1);
   while(k>=state.startDate && (state.days[k]||{}).status==="clean"){ streak++; k=addDays(k,-1); }
-  const sosWon = state.sos.filter(x=>x.outcome==="won").length;
-  return { dn, streak, bestStreak, clean, relapse, sosWon,
-    hours: Math.round(clean*MIN_PER_DAY/6)/10, elapsed: Math.min(Math.max(dayNumber(),1), state.duration) };
+  const quests = Object.values(state.quests||{}).reduce((n,a)=>n+a.filter(Boolean).length,0);
+  return { dn:Math.min(dayNumber(),state.duration), streak, bestStreak, clean, relapse, quests,
+    sosWon: state.sos.filter(x=>x.outcome==="won").length,
+    hours: Math.round(clean*MIN_PER_DAY/6)/10,
+    elapsed: Math.min(Math.max(dayNumber(),1), state.duration) };
 }
+const metrics = metricsRaw;
 function phoenix(s){
   return Object.keys(s.days).some(k=> s.days[k].status==="relapse" && (s.days[addDays(k,1)]||{}).status==="clean");
 }
-function level(){ let i=0; for(let j=0;j<LEVELS.length;j++) if(state.xp>=LEVELS[j][0]) i=j; return { n:i+1, name:LEVELS[i][1], next: LEVELS[i+1] ? LEVELS[i+1][0] : null }; }
-function gainXp(n,msg){ state.xp+=n; save(); toast(msg || ("+"+n+" points d'effort")); renderAll(); }
+function gainXp(n,msg){ state.xp+=n; save(); toast(msg || ("+"+n+" pts")); renderAll(); }
 
 /* ---------- toast & confetti ---------- */
 let toastT;
@@ -697,46 +914,31 @@ function confetti(){
   })();
 }
 
-/* ---------- hero : arc de 30 soleils ---------- */
-function drawSky(){
-  const m=metrics(); const svg=$("#skySvg"); const N=state.duration;
-  const cx=200, cy=148, R=128; const a0=Math.PI*0.98, a1=Math.PI*0.02;
-  let out = "";
-  // horizon
-  out += `<line x1="12" y1="148" x2="388" y2="148" stroke="var(--line)" stroke-width="1.5"/>`;
-  for(let i=1;i<=N;i++){
-    const t=(i-1)/(N-1), a=a0+(a1-a0)*t;
-    const x=cx+R*Math.cos(a), y=cy-R*Math.sin(a)*0.82;
-    const k=addDays(state.startDate,i-1), st=(state.days[k]||{}).status;
-    const isToday = k===today() && m.dn<=N;
-    if(isToday){
-      out += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="13" fill="var(--accent)" opacity=".18"/>`;
-      out += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7.5" fill="var(--accent)"/>`;
-      for(let rr=0; rr<8; rr++){ const ra=rr*Math.PI/4;
-        out += `<line x1="${(x+11*Math.cos(ra)).toFixed(1)}" y1="${(y+11*Math.sin(ra)).toFixed(1)}" x2="${(x+15*Math.cos(ra)).toFixed(1)}" y2="${(y+15*Math.sin(ra)).toFixed(1)}" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>`; }
-    } else if(st==="clean"){
-      out += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="var(--good)"/>`;
-    } else if(st==="relapse"){
-      out += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="none" stroke="var(--bad)" stroke-width="1.8"/>`;
-    } else if(k<today()){
-      out += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.5" fill="var(--ink3)" opacity=".55"/>`;
-    } else {
-      out += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2" fill="var(--ink3)" opacity=".3"/>`;
-    }
+/* ---------- quêtes du jour (déterministes, zéro saisie) ---------- */
+function questsOfDay(){
+  const dn=Math.max(dayNumber(),1);
+  const out=[];
+  for(let i=0;i<3;i++){
+    const cat=QCATS[(dn+i)%QCATS.length];
+    const pool=QUESTS[cat];
+    out.push({cat, text:pool[(dn*(i+3)+i)%pool.length]});
   }
-  svg.innerHTML = out;
+  return out;
 }
 
 /* ---------- rendu ---------- */
-function renderAll(){ renderHeader(); renderToday(); renderProgress(); renderJournal(); renderSettings(); }
+function renderAll(){ renderHeader(); renderHero(); renderProgress(); renderShield(); renderSettings(); }
 
-function renderHeader(){
-  const l=level();
-  $("#lvlChip").innerHTML = `Niv. ${l.n} · ${l.name} · <span class="xp num">${state.xp} pts</span>`;
-}
+function renderHeader(){ $("#xpChip").textContent = state.xp+" pts"; }
 
-function renderToday(){
-  const m=metrics(); drawSky();
+function renderHero(){
+  const m=metrics();
+  const si=stageIdx(m.clean), sp=SPRITES[si];
+  drawSprite($("#heroPx"), si);
+  $("#auraBox").style.setProperty("--aura", sp.aura);
+  $("#stageName").textContent = sp.name;
+  $("#stageSub").textContent = sp.sub;
+
   const done = dayNumber()>state.duration;
   $("#dayNum").textContent = done ? state.duration : m.dn;
   $("#dayOf").textContent = "/ "+state.duration;
@@ -748,41 +950,67 @@ function renderToday(){
   if(done){ btn.textContent="Défi complété — voir le bilan"; btn.disabled=false; btn.classList.add("done"); }
   else if(st==="clean"){ btn.textContent="✓ Journée validée — à demain"; btn.disabled=true; btn.classList.add("done"); }
   else if(st==="relapse"){ btn.textContent="Rechute notée — demain on repart"; btn.disabled=true; btn.classList.remove("done"); }
-  else { btn.textContent="Valider ma journée"; btn.disabled=false; btn.classList.remove("done"); }
+  else { btn.textContent="Valider ma journée  (+20 pts)"; btn.disabled=false; btn.classList.remove("done"); }
   $("#relapseLink").style.display = (st || done) ? "none" : "block";
 
+  // prochaine évolution
+  const next = SPRITES[si+1];
+  if(next){
+    $("#evoNext").style.display="flex";
+    drawSprite($("#nextPx"), si+1);
+    $("#evoLabel").textContent = `Évolution → ${next.name} à ${next.min} journées tenues (encore ${next.min-m.clean})`;
+    const prev = sp.min;
+    $("#evoMeter").style.width = Math.min(100, (m.clean-prev)/(next.min-prev)*100)+"%";
+  } else $("#evoNext").style.display="none";
+
+  // quêtes
+  const q=questsOfDay(); const donearr = state.quests[tk] || [false,false,false];
+  $("#questScore").textContent = donearr.filter(Boolean).length+" / 3 · +10 pts chacune";
+  $("#questList").innerHTML = q.map((x,i)=>`
+    <button class="quest ${donearr[i]?"on":""}" data-q="${i}">
+      <span class="qc">${donearr[i]?"✓":""}</span>
+      <span><span class="qk">${x.cat}</span><br><span class="qt">${x.text}</span></span>
+      <span class="qxp">+10</span>
+    </button>`).join("");
+  $$("#questList [data-q]").forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.q; const arr=state.quests[tk]||[false,false,false];
+    arr[i]=!arr[i]; state.quests[tk]=arr;
+    state.xp += arr[i]?10:-10; if(state.xp<0)state.xp=0;
+    save(); if(arr[i]) toast("Quête accomplie +10 pts 🎯");
+    renderAll();
+  });
+
+  // stats
   $("#stStreak").innerHTML = m.streak+"<small> j</small>";
   $("#stUrges").textContent = m.sosWon;
   $("#stTime").innerHTML = (m.hours%1? m.hours.toFixed(1) : m.hours)+"<small> h</small>";
-  $("#stXp").textContent = state.xp;
+  $("#stQuests").textContent = m.quests;
 
-  const q=QUOTES[(m.dn-1+QUOTES.length*9)%QUOTES.length];
-  $("#quoteTxt").textContent = "« "+q[0]+" »";
-  $("#quoteWho").textContent = "— "+q[1];
+  // raisons visuelles
+  $("#reasonCards").innerHTML = state.reasons.length
+    ? state.reasons.map((r,i)=>`<div class="r"><span class="ic">${REASON_ICONS[i%REASON_ICONS.length]}</span>${esc(r)}</div>`).join("")
+    : `<div class="card"><span class="small">Ajoute tes raisons dans Réglages — elles s'affichent ici et dans le SOS.</span></div>`;
 
-  // bénéfices : passé / en cours / prochain
-  const cur = BENEFITS.findIndex(b=> m.dn>=b.from && m.dn<=b.to);
-  const idx = cur<0 ? BENEFITS.length-1 : cur;
-  const show = BENEFITS.map((b,i)=>({ ...b, cls: i<idx?"won": i===idx?"now":"" })).slice(Math.max(0,idx-1), idx+2);
-  $("#beneList").innerHTML = show.map(b=>`
-    <div class="bene-item ${b.cls}"><span class="bene-dot"></span>
-      <div><div class="bene-t">${b.t}</div><p>${b.p}</p></div></div>`).join("");
+  // citation
+  const qd=QUOTES[(m.dn-1+QUOTES.length*9)%QUOTES.length];
+  $("#quoteTxt").textContent = "« "+qd[0]+" »";
+  $("#quoteWho").textContent = "— "+qd[1];
 
-  // prochaine récompense
-  const next = state.rewards.filter(r=>!r.claimed && r.day>=0).sort((a,b)=>a.day-b.day).find(r=> m.streak < r.day || !r.claimed && m.streak>=r.day);
+  // récompense
+  const nr = state.rewards.filter(r=>!r.claimed).sort((a,b)=>a.day-b.day)[0];
   const card=$("#nextRewardCard");
-  if(next){
+  if(nr){
     card.style.display="block";
-    const won = m.streak>=next.day;
-    $("#rwLabel").textContent = next.label;
-    $("#rwWhen").textContent = won ? "Débloquée ! Va dans Progrès pour la réclamer." : `Jour ${next.day} de série — encore ${next.day-m.streak} j`;
-    $("#rwMeter").style.width = Math.min(100, m.streak/next.day*100)+"%";
+    const won = m.clean>=nr.day;
+    $("#rwLabel").textContent = nr.label;
+    $("#rwWhen").textContent = won ? "Débloquée ! Va dans Progrès pour la réclamer." : `À ${nr.day} journées tenues — encore ${nr.day-m.clean}`;
+    $("#rwMeter").style.width = Math.min(100, m.clean/nr.day*100)+"%";
   } else card.style.display="none";
 
-  // nudge protections
+  // bouclier
   const undone = state.frictions.filter(f=>!f.done).length;
-  $("#frictionNudge").style.display = undone? "block":"none";
-  $("#frictionCount").textContent = undone+" protection"+(undone>1?"s":"")+" pas encore en place";
+  $("#shieldNudge").style.display = undone? "block":"none";
+  $("#shieldCount").textContent = undone+" verrou"+(undone>1?"s":"")+" pas encore en place";
 }
 
 function renderProgress(){
@@ -798,7 +1026,23 @@ function renderProgress(){
   $("#pgBest").innerHTML=m.bestStreak+"<small> j</small>";
   $("#pgRate").textContent = m.elapsed? m.clean+" / "+m.elapsed : "—";
   $("#pgSos").textContent = m.sosWon+" / "+state.sos.length;
-  $("#pgLvl").textContent = level().n;
+  $("#pgQuests").textContent = m.quests;
+
+  // lignée d'évolution
+  const cur=stageIdx(m.clean);
+  $("#evoRoad").innerHTML = SPRITES.map((sp,i)=>`
+    <div class="evoStep ${i>cur?"locked":""} ${i===cur?"now":""}">
+      <canvas class="px" data-road="${i}" width="30" height="40"></canvas>
+      <div class="grow"><div class="en">${sp.name}</div><div class="ed">${sp.min===0?"Départ":sp.min+" journées tenues"}</div></div>
+      ${i<=cur?'<span class="chip" style="background:var(--good-soft);color:var(--good)">✓</span>':`<span class="small num">${sp.min-m.clean} j</span>`}
+    </div>`).join("");
+  $$("#evoRoad [data-road]").forEach(c=>drawSprite(c,+c.dataset.road));
+
+  // bénéfices
+  const idxb = Math.max(0, BENEFITS.findIndex(b=> m.dn>=b.from && m.dn<=b.to));
+  $("#beneList").innerHTML = BENEFITS.map((b,i)=>`
+    <div class="bene-item ${i<idxb?"won": i===idxb?"now":""}"><span class="bene-dot"></span>
+      <div><div class="bene-t">${b.t}</div><p>${b.p}</p></div></div>`).join("");
 
   const won = BADGES.filter(b=>b.test(state,m));
   $("#badgeCount").textContent = won.length+" / "+BADGES.length;
@@ -808,67 +1052,49 @@ function renderProgress(){
   }).join("");
 
   $("#rewardList").innerHTML = state.rewards.map((r,i)=>{
-    const unlocked = m.streak>=r.day || r.claimed;
+    const unlocked = m.clean>=r.day || r.claimed;
     const btn = r.claimed ? `<span class="chip" style="background:var(--good-soft);color:var(--good)">Réclamée ✓</span>`
       : unlocked ? `<button class="chip pick on" data-claim="${i}">Réclamer 🎁</button>`
-      : `<span class="chip">Jour ${r.day}</span>`;
-    return `<div class="li"><div class="grow"><b style="font-size:13.5px">${esc(r.label)}</b><div class="small">Jalon : ${r.day} jours de série</div></div>${btn}</div>`;
+      : `<span class="chip num">${r.day} j</span>`;
+    return `<div class="li"><div class="grow"><b style="font-size:13.5px">${esc(r.label)}</b><div class="small">Jalon : ${r.day} journées tenues</div></div>${btn}</div>`;
   }).join("");
   $$("#rewardList [data-claim]").forEach(b=>b.onclick=()=>{
     state.rewards[+b.dataset.claim].claimed=true; gainXp(25,"Récompense réclamée — profites-en pour vrai ! +25 pts"); confetti();
   });
 }
 
-function moodSpark(){
-  const svg=$("#moodSpark");
-  const keys=[]; for(let i=13;i>=0;i--) keys.push(addDays(today(),-i));
-  const pts = keys.map((k,i)=> state.moods[k] ? [16+i*(368/13), 58-(state.moods[k]-1)*11.5] : null);
-  const line = pts.filter(Boolean);
-  let out = "";
-  for(let g=0;g<5;g++) out+=`<line x1="16" x2="384" y1="${58-g*11.5}" y2="${58-g*11.5}" stroke="var(--ring-track)" stroke-width="1"/>`;
-  if(line.length>1){
-    out+=`<polyline points="${pts.map(p=>p?p.join(","):"").filter(Boolean).join(" ")}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
-  }
-  pts.forEach((p)=>{ if(p) out+=`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"/>`; });
-  if(line.length){ const last=line[line.length-1]; out+=`<circle cx="${last[0]}" cy="${last[1]}" r="5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"/>`; }
-  out+=`<text x="16" y="69" font-size="9" fill="var(--ink3)">il y a 14 j</text><text x="384" y="69" font-size="9" text-anchor="end" fill="var(--ink3)">aujourd'hui</text>`;
-  svg.innerHTML=out;
-}
-
-function renderJournal(){
-  const MOODS=["😞","😕","😐","🙂","💪"];
-  const tk=today(); const cur=state.moods[tk];
-  $("#moodRow").innerHTML = MOODS.map((e,i)=>`<button class="mood-b ${cur===i+1?"on":""}" data-mood="${i+1}" aria-label="Humeur ${i+1} sur 5">${e}</button>`).join("");
-  $$("#moodRow .mood-b").forEach(b=>b.onclick=()=>{
-    const v=+b.dataset.mood; const had=!!state.moods[tk];
-    state.moods[tk]=v; save(); if(!had) gainXp(2,"Humeur notée +2 pts"); else renderAll();
+function renderShield(){
+  $("#shieldList").innerHTML = SHIELDS.map((sh,i)=>{
+    const f=state.frictions[i];
+    return `<div class="shield-item ${f.done?"on":""}">
+      <label class="shield-head"><input type="checkbox" data-sh="${i}" ${f.done?"checked":""}>
+        <span class="grow"><span class="st">${sh.label}</span><br><button class="gbtn" data-g="${i}">Comment faire ▾</button></span>
+      </label>
+      <div class="shield-guide" id="guide-${i}" style="display:none">${sh.guide}</div>
+    </div>`;
+  }).join("");
+  $$("#shieldList [data-sh]").forEach(c=>c.onchange=()=>{
+    const f=state.frictions[+c.dataset.sh]; f.done=c.checked; save();
+    if(c.checked) gainXp(15,"Verrou en place +15 pts 🔒"); else renderAll();
   });
-  moodSpark();
-  $("#reasonListRO").innerHTML = state.reasons.length
-    ? state.reasons.map(r=>`<div class="li" style="border-left:3px solid var(--accent)">${esc(r)}</div>`).join("")
-    : `<div class="small">Ajoute tes raisons dans Réglages.</div>`;
-  $("#jrList").innerHTML = state.journal.slice().reverse().map((e)=>`
-    <div class="entry"><div class="small"><span>${new Date(e.ts).toLocaleDateString("fr-CA",{day:"numeric",month:"short"})} · ${new Date(e.ts).toLocaleTimeString("fr-CA",{hour:"2-digit",minute:"2-digit"})}</span>
-    <button class="x" data-del="${e.ts}" aria-label="Supprimer">✕</button></div><p>${esc(e.text)}</p></div>`).join("");
-  $$("#jrList [data-del]").forEach(b=>b.onclick=()=>{ state.journal=state.journal.filter(e=>e.ts!==+b.dataset.del); save(); renderJournal(); });
+  $$("#shieldList [data-g]").forEach(b=>b.onclick=(e)=>{
+    e.preventDefault();
+    const g=$("#guide-"+b.dataset.g);
+    const show=g.style.display==="none";
+    g.style.display=show?"block":"none";
+    b.textContent=show?"Comment faire ▴":"Comment faire ▾";
+  });
 }
 
 function renderSettings(){
   $("#reasonList").innerHTML = state.reasons.map((r,i)=>`<div class="li"><span class="grow">${esc(r)}</span><button class="x" data-rr="${i}" aria-label="Retirer">✕</button></div>`).join("") || `<div class="small">Aucune raison pour l'instant.</div>`;
   $$("#reasonList [data-rr]").forEach(b=>b.onclick=()=>{ state.reasons.splice(+b.dataset.rr,1); save(); renderAll(); });
 
-  $("#frictionList").innerHTML = state.frictions.map((f,i)=>`
-    <label class="check ${f.done?"on":""}"><input type="checkbox" data-fr="${i}" ${f.done?"checked":""}><span>${esc(f.label)}</span></label>`).join("");
-  $$("#frictionList [data-fr]").forEach(c=>c.onchange=()=>{
-    const f=state.frictions[+c.dataset.fr]; f.done=c.checked; save();
-    if(c.checked) gainXp(10,"Protection en place +10 pts"); else renderAll();
-  });
-
   $("#rewardEdit").innerHTML = state.rewards.map((r,i)=>`
-    <button class="li" data-re="${i}" style="text-align:left"><span class="chip" style="flex:none">J${r.day}</span><span class="grow">${esc(r.label)}</span>✎</button>`).join("");
+    <button class="li" data-re="${i}" style="text-align:left"><span class="chip num" style="flex:none">J${r.day}</span><span class="grow">${esc(r.label)}</span>✎</button>`).join("");
   $$("#rewardEdit [data-re]").forEach(b=>b.onclick=()=>{
     const r=state.rewards[+b.dataset.re];
-    const v=prompt("Ta récompense pour "+r.day+" jours de série :", r.label);
+    const v=prompt("Ta récompense pour "+r.day+" journées tenues :", r.label);
     if(v && v.trim()){ r.label=v.trim().slice(0,120); save(); renderAll(); }
   });
 
@@ -876,16 +1102,31 @@ function renderSettings(){
     + (state.name? ` — pacte signé par ${state.name}.`:".") + (state.completed? ` Défis complétés : ${state.completed}.`:"");
 }
 
+/* ---------- évolution ---------- */
+function checkEvolution(){
+  const si=stageIdx(metrics().clean);
+  if(si>state.lastStage){
+    state.lastStage=si; save();
+    const sp=SPRITES[si];
+    drawSprite($("#evoPx"), si);
+    $("#evoName").textContent=sp.name;
+    $("#evoDesc").textContent=sp.sub;
+    $("#evoFlash").classList.add("on");
+    confetti();
+  }
+}
+$("#evoOk").onclick=()=>$("#evoFlash").classList.remove("on");
+
 /* ---------- check-in / rechute ---------- */
 $("#checkinBtn").onclick=()=>{
   if(dayNumber()>state.duration){ openWin(); return; }
   const tk=today();
   if(state.days[tk]) return;
   state.days[tk]={status:"clean"};
-  save(); confetti();
-  const m=metrics();
-  gainXp(20, "Jour "+m.dn+" validé ! +20 pts 🌄");
-  if(dayNumber()>=state.duration) setTimeout(openWin, 900);
+  state.xp+=20; save(); confetti();
+  toast("Jour "+metrics().dn+" validé ! +20 pts ⚔️");
+  renderAll(); checkEvolution();
+  if(metrics().clean>=state.duration) setTimeout(openWin, 1200);
 };
 
 let rlTrigger=null;
@@ -898,9 +1139,8 @@ $("#relapseLink").onclick=openRelapse;
 $("#rlClose").onclick=()=>$("#rlOv").classList.remove("on");
 $("#rlConfirm").onclick=()=>{
   state.days[today()]={status:"relapse", trigger:rlTrigger};
-  if(rlTrigger) state.journal.push({ts:Date.now(), text:"Rechute — déclencheur : "+rlTrigger+". Demain, je me protège mieux sur ce front."});
   save(); $("#rlOv").classList.remove("on");
-  toast("Noté. Demain est un nouveau lever de soleil.");
+  toast("Noté. Demain, ton héros se relève.");
   renderAll();
 };
 
@@ -908,7 +1148,7 @@ $("#rlConfirm").onclick=()=>{
 let breathTimer=null, sosTimerI=null;
 function sosGo(n){
   for(let i=1;i<=5;i++) $("#sos"+i).style.display = i===n ? "flex":"none";
-  clearInterval(breathTimer); clearInterval(sosTimerI);
+  clearTimeout(breathTimer); clearInterval(sosTimerI);
   if(n===2) startBreath();
   if(n===3) $("#sosReasons").innerHTML = (state.reasons.length?state.reasons:REASON_SUGGESTIONS.slice(0,3)).map(r=>`<div class="r">${esc(r)}</div>`).join("");
   if(n===4) startSosTimer();
@@ -932,25 +1172,18 @@ function startSosTimer(){
   sosTimerI=setInterval(()=>{ s--; if(s<0){ clearInterval(sosTimerI); el.textContent="00:00 ✓"; return; } paint(); },1000);
 }
 $("#sosOpen").onclick=()=>{ $("#sosOv").classList.add("on"); sosGo(1); };
-$("#sosClose").onclick=()=>{ $("#sosOv").classList.remove("on"); clearInterval(breathTimer); clearInterval(sosTimerI); };
+$("#sosClose").onclick=()=>{ $("#sosOv").classList.remove("on"); clearTimeout(breathTimer); clearInterval(sosTimerI); };
 $$("[data-sosgo]").forEach(b=>b.onclick=()=>sosGo(+b.dataset.sosgo));
 $("#sosWin").onclick=()=>{ state.sos.push({ts:Date.now(),outcome:"won"}); save(); sosGo(5); };
 $("#sosDone").onclick=()=>{ $("#sosOv").classList.remove("on"); confetti(); gainXp(15,"Envie surmontée +15 pts 🏄"); };
 $("#sosLose").onclick=()=>{ state.sos.push({ts:Date.now(),outcome:"lost"}); save(); $("#sosOv").classList.remove("on"); openRelapse(); };
 
-/* ---------- journal ---------- */
-$("#jrSave").onclick=()=>{
-  const t=$("#jrText").value.trim(); if(!t) return;
-  state.journal.push({ts:Date.now(), text:t.slice(0,2000)}); $("#jrText").value="";
-  save(); gainXp(5,"Journal +5 pts ✍️");
-};
-
 /* ---------- réglages ---------- */
 $("#reasonAdd").onclick=()=>{ const v=$("#reasonNew").value.trim(); if(!v) return; state.reasons.push(v); $("#reasonNew").value=""; save(); renderAll(); };
 $("#reasonNew").addEventListener("keydown",e=>{ if(e.key==="Enter") $("#reasonAdd").click(); });
-$("#goFrictions").onclick=()=>nav("settings");
+$("#goShield").onclick=()=>nav("shield");
 $("#resetAll").onclick=()=>{
-  if(!confirm("Tout effacer et recommencer à zéro ? Points, badges, journal — tout.")) return;
+  if(!confirm("Tout effacer et recommencer à zéro ? Points, badges, personnage — tout.")) return;
   if(!confirm("Vraiment sûr ? Cette action est définitive.")) return;
   localStorage.removeItem(KEY); location.reload();
 };
@@ -958,13 +1191,14 @@ $("#resetAll").onclick=()=>{
 /* ---------- victoire ---------- */
 function openWin(){
   const m=metrics();
-  $("#winStats").textContent = `${m.clean} journées tenues · ${m.sosWon} envies surmontées · ${state.xp} points · niveau ${level().n} (${level().name}) · ~${Math.round(m.clean*MIN_PER_DAY/60)} h récupérées.`;
+  drawSprite($("#winPx"), SPRITES.length-1);
+  $("#winStats").textContent = `${m.clean} journées tenues · ${m.sosWon} envies surmontées · ${m.quests} quêtes · ${state.xp} points · ~${Math.round(m.clean*MIN_PER_DAY/60)} h récupérées.`;
   $("#winOv").classList.add("on"); confetti();
 }
 $("#winStay").onclick=()=>$("#winOv").classList.remove("on");
 $("#winAgain").onclick=()=>{
   state.completed=(state.completed||0)+1;
-  state.startDate=today(); state.days={}; state.sos=[];
+  state.startDate=today(); state.days={}; state.sos=[]; state.quests={}; state.lastStage=0;
   state.rewards.forEach(r=>r.claimed=false);
   save(); $("#winOv").classList.remove("on"); toast("Nouveau défi lancé. Jour 1 — c'est reparti !"); renderAll();
 };
@@ -980,7 +1214,7 @@ $$(".nv").forEach(b=>b.onclick=()=>nav(b.dataset.scr));
 /* ---------- onboarding ---------- */
 const obPicked = new Set();
 function obGo(n){
-  for(let i=1;i<=4;i++){ const el=$("#ob"+i); el.style.display = i===n ? (i===1?"flex":"flex") : "none"; el.style.flexDirection="column"; }
+  for(let i=1;i<=3;i++){ const el=$("#ob"+i); el.style.display = i===n ? "flex" : "none"; el.style.flexDirection="column"; }
   $$("#obSteps i").forEach((s,i)=>s.classList.toggle("on", i<n));
 }
 function obRenderReasons(){
@@ -990,22 +1224,14 @@ function obRenderReasons(){
 }
 $("#obReasonAdd").onclick=()=>{ const v=$("#obReasonNew").value.trim(); if(!v) return; obPicked.add(v); $("#obReasonNew").value=""; obRenderReasons(); };
 $("#obReasonNew").addEventListener("keydown",e=>{ if(e.key==="Enter") $("#obReasonAdd").click(); });
-$$("[data-obgo]").forEach(b=>b.onclick=()=>{
-  const n=+b.dataset.obgo;
-  if(n===3){ // rendre les frictions
-    $("#obFrictionList").innerHTML = state.frictions.map((f,i)=>`
-      <label class="check"><input type="checkbox" data-obf="${i}" ${f.done?"checked":""}><span>${esc(f.label)}</span></label>`).join("");
-    $$("#obFrictionList [data-obf]").forEach(c=>c.onchange=()=>{ state.frictions[+c.dataset.obf].done=c.checked; });
-  }
-  obGo(n);
-});
+$$("[data-obgo]").forEach(b=>b.onclick=()=>obGo(+b.dataset.obgo));
 $("#obSeal").onclick=()=>{
   state.name=$("#obName").value.trim().slice(0,30);
   state.reasons=[...obPicked];
-  state.onboarded=true; state.sealedAt=Date.now(); state.startDate=today();
-  state.xp = 10 + state.frictions.filter(f=>f.done).length*10;
+  state.onboarded=true; state.sealedAt=Date.now(); state.startDate=today(); state.lastStage=0;
+  state.xp = 10;
   save(); $("#obOv").classList.remove("on");
-  confetti(); toast("Pacte scellé. Jour 1 — le soleil se lève. +"+state.xp+" pts");
+  confetti(); toast("Pacte scellé. Ton héros s'éveille. +10 pts");
   renderAll();
 };
 
@@ -1014,7 +1240,7 @@ function esc(s){ return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;
 
 /* ---------- démarrage ---------- */
 load();
-if(!state.onboarded){ $("#obOv").classList.add("on"); obGo(1); obRenderReasons(); }
+if(!state.onboarded){ $("#obOv").classList.add("on"); obGo(1); obRenderReasons(); drawSprite($("#obPx"),0); }
 renderAll();
 </script>
 

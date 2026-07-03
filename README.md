@@ -10,17 +10,15 @@ Astuce téléphone : ouvrir la page puis « Ajouter à l'écran d'accueil » pou
 
 ## Fonctionnalités
 
-- **Pacte de départ** : raisons personnelles, signature, engagement de 30 jours.
-- **Validation quotidienne** avec points d'effort, niveaux et animation.
-- **Arc des 30 soleils** : chaque journée tenue est un soleil qui monte sur l'horizon.
-- **SOS anti-envie** (poka-yoke comportemental) : respiration guidée 4-4-6, rappel des raisons, règle des 10 minutes avec minuteur et actions de diversion.
-- **Protections poka-yoke** : liste de frictions à mettre en place (bloqueurs, apps supprimées, téléphone hors de la chambre…), chacune récompensée.
-- **Récompenses personnalisables** aux jalons 3, 7, 14, 21 et 30 jours.
-- **12 badges** (séries, envies surmontées, forteresse, phénix…).
-- **Bénéfices jour après jour** : ce qui change dans le corps et la tête à chaque étape.
-- **Calendrier des 30 jours**, meilleure série, temps récupéré, taux de réussite.
-- **Journal** avec humeur quotidienne et courbe des 14 derniers jours.
-- **Gestion compatissante des rechutes** : la série repart, pas le progrès ; déclencheur noté pour mieux se protéger.
+- **Évolution de personnage** (pixel art) : le héros grandit avec les journées tenues — L'Ombre → L'Éveillé → L'Apprenti → Le Combattant → Le Chevalier → Le Champion → Le Souverain, avec écran d'évolution à chaque palier.
+- **Un seul intrant obligatoire par jour** : valider sa journée (+20 pts).
+- **Quêtes du jour** : 3 quêtes auto-générées (Corps, Esprit, Vie, Social) pensées pour un gars de 25 ans — entraînement, lecture, cuisine, appels, projet perso… +10 pts chacune, cochables d'un tap.
+- **Bouclier (poka-yoke)** : guides pas à pas pour bloquer réellement le contenu adulte au niveau du téléphone (Temps d'écran iPhone, DNS privé Android, DNS familial maison, verrouillage de réinstallation d'apps), +15 pts par verrou.
+- **SOS anti-envie** : respiration guidée 4-4-6, rappel des raisons, règle des 10 minutes avec minuteur et actions de diversion.
+- **Récompenses réelles personnalisables** aux jalons 3, 7, 14, 21 et 30 journées tenues.
+- **13 badges**, lignée d'évolution complète, calendrier des 30 jours, meilleure série, temps récupéré.
+- **Raisons visuelles** affichées sur l'écran principal et dans le SOS.
+- **Gestion compatissante des rechutes** : la série repart, pas le personnage ; déclencheur noté pour mieux se protéger.
 
 ## Fichiers
 
