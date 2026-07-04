@@ -110,6 +110,8 @@ header.top{
     linear-gradient(180deg,var(--sky1),var(--sky2));
 }
 canvas.px{image-rendering:pixelated;image-rendering:crisp-edges;display:block}
+#heroPx{animation:idle 2.4s ease-in-out infinite}
+@keyframes idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .stageName{font-family:var(--display);font-weight:700;font-size:30px;letter-spacing:.06em;text-transform:uppercase;margin-top:8px}
 .stageSub{font-size:12.5px;color:var(--ink2);text-align:center;max-width:280px;text-wrap:balance}
 .hero-body{padding:12px 18px 18px;display:flex;flex-direction:column;gap:12px}
@@ -291,6 +293,14 @@ nav{
 
     <!-- ================= HÉROS ================= -->
     <section class="screen on" id="scr-hero">
+      <div class="card" id="memWarn" style="display:none;border-left:3px solid var(--bad)">
+        <div style="font-weight:700;font-size:14.5px">⚠️ Cet aperçu ne garde pas les données</div>
+        <p class="small" style="margin-top:4px">Ce navigateur efface tout à la fermeture. Utilise la <a id="permLink" href="#" style="color:var(--accent-ink);font-weight:700">version permanente</a> (à installer sur ton écran d'accueil), ou copie ton code de sauvegarde avant de quitter.</p>
+        <div class="row" style="margin-top:10px;gap:8px">
+          <button class="chip pick on" id="memCopy">Copier ma sauvegarde</button>
+          <button class="chip pick" id="memRestore">Restaurer</button>
+        </div>
+      </div>
       <div class="card heroCard">
         <div class="aura" id="auraBox">
           <canvas class="px" id="heroPx" width="120" height="160" aria-label="Ton personnage"></canvas>
@@ -311,6 +321,7 @@ nav{
               <div class="meter"><i id="evoMeter" style="width:0%"></i></div>
             </div>
           </div>
+          <button class="btn ghost" id="yesterdayBtn" style="display:none;font-size:14px;padding:11px">J'ai oublié de valider hier — c'était tenu ✓</button>
           <button class="btn danger-ghost" id="relapseLink">J'ai flanché aujourd'hui…</button>
         </div>
       </div>
@@ -415,6 +426,15 @@ nav{
         <div class="eyebrow">Mes récompenses aux jalons</div>
         <p class="small" style="margin-top:6px">Touche une récompense pour la modifier. Gagne-la, puis offre-la-toi vraiment.</p>
         <div class="list" id="rewardEdit" style="margin-top:10px"></div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Sauvegarde</div>
+        <p class="small" style="margin-top:6px" id="storeInfo"></p>
+        <div class="row" style="margin-top:10px;gap:8px">
+          <button class="chip pick on" id="setCopy">Copier mon code</button>
+          <button class="chip pick" id="setRestore">Restaurer un code</button>
+        </div>
+        <p class="small" style="margin-top:8px">Le code contient tout ton progrès. Colle-le dans tes notes de temps en temps — il te suit d'un appareil à l'autre.</p>
       </div>
       <div class="card">
         <div class="eyebrow">Défi</div>
@@ -525,6 +545,7 @@ nav{
       <div class="ob-title">Ton personnage commence dans l'ombre.<br>À toi de le faire évoluer.</div>
       <p class="muted" style="max-width:310px">30 jours sans porno ni apps de rencontre. Chaque journée tenue fait grandir ton héros : de l'Ombre jusqu'au Souverain. Quêtes quotidiennes, bouton SOS pour les envies, récompenses réelles aux jalons.</p>
       <button class="btn" data-obgo="2" style="max-width:300px">Créer mon héros</button>
+      <button class="btn danger-ghost" id="obRestore">J'ai déjà un code de sauvegarde</button>
     </div>
 
     <div id="ob2" style="display:none;flex-direction:column;gap:14px">
@@ -593,6 +614,7 @@ const $$ = (s) => [...document.querySelectorAll(s)];
 const KEY = "reprise-v1";
 const DURATION = 30;
 const MIN_PER_DAY = 40;
+const PERM_URL = "https://marcoux20010620-lab.github.io/Concentration-/";
 
 /* ---------- SPRITES 12×16 (pixel art) ---------- */
 const PAL = { k:"#241d2e", s:"#e6b48c", h:"#5d3f28", w:"#ffffff", m:"#b9c2d0", n:"#8d97a8",
@@ -838,6 +860,32 @@ const BADGES = [
   { id:"ph",  ic:"🐦", n:"Phénix",         d:"Revenu valider le lendemain d'une rechute", test:(s)=>phoenix(s) },
 ];
 
+/* ---------- stockage à toute épreuve ----------
+   1. localStorage  (normal : navigateur, PWA, GitHub Pages)
+   2. cookie        (si localStorage est bloqué)
+   3. mémoire seule (bac à sable strict) → bannière + code de sauvegarde */
+const store={ mode:"memory", mem:null };
+(function(){
+  try{ localStorage.setItem("__rt","1");
+    if(localStorage.getItem("__rt")==="1"){ localStorage.removeItem("__rt"); store.mode="local"; return; } }catch(e){}
+  try{ document.cookie="__rt=1;path=/;max-age=60";
+    if(document.cookie.indexOf("__rt=1")>-1){ store.mode="cookie"; return; } }catch(e){}
+})();
+const b64enc = (s)=> btoa(unescape(encodeURIComponent(s)));
+const b64dec = (s)=> decodeURIComponent(escape(atob(s)));
+function rawLoad(){
+  if(store.mode==="local"){ try{ return localStorage.getItem(KEY); }catch(e){} }
+  if(store.mode==="cookie"){
+    try{ const m=document.cookie.match(/(?:^|; )reprise=([^;]*)/); if(m) return b64dec(m[1]); }catch(e){}
+  }
+  return store.mem;
+}
+function rawSave(s){
+  store.mem=s;
+  if(store.mode==="local"){ try{ localStorage.setItem(KEY, s); }catch(e){} }
+  if(store.mode==="cookie"){ try{ document.cookie="reprise="+b64enc(s)+";path=/;max-age=31536000;SameSite=Lax"; }catch(e){} }
+}
+
 /* ---------- état ---------- */
 let state = null;
 const fresh = () => ({
@@ -846,20 +894,41 @@ const fresh = () => ({
   rewards:DEFAULT_REWARDS.map(r=>({ ...r, claimed:false })),
   days:{}, sos:[], quests:{}, xp:0, completed:0, sealedAt:null, lastStage:0,
 });
-function load(){
-  try{
-    const raw=localStorage.getItem(KEY);
-    state = raw ? Object.assign(fresh(), JSON.parse(raw)) : fresh();
-    // migration v1 → v2 : protections re-basées sur les nouveaux verrous
-    if(!state.frictions.length || state.frictions[0].id===0 || state.frictions[0].label){
-      const oldDone = (state.frictions||[]).filter(f=>f.done).length;
-      state.frictions = SHIELDS.map((sh,i)=>({id:sh.id, done:i<oldDone}));
-    }
-    if(!state.quests) state.quests={};
-    if(state.lastStage===undefined) state.lastStage=stageIdx(metricsRaw().clean);
-  }catch(e){ state = fresh(); }
+function hydrate(raw){
+  state = raw ? Object.assign(fresh(), JSON.parse(raw)) : fresh();
+  // migration v1 → v2 : protections re-basées sur les nouveaux verrous
+  if(!state.frictions.length || state.frictions[0].id===0 || state.frictions[0].label){
+    const oldDone = (state.frictions||[]).filter(f=>f.done).length;
+    state.frictions = SHIELDS.map((sh,i)=>({id:sh.id, done:i<oldDone}));
+  }
+  if(!state.quests) state.quests={};
+  if(state.lastStage===undefined) state.lastStage=stageIdx(metricsRaw().clean);
 }
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function load(){ try{ hydrate(rawLoad()); }catch(e){ state = fresh(); } }
+function save(){ try{ rawSave(JSON.stringify(state)); }catch(e){} }
+
+/* ---------- code de sauvegarde ---------- */
+function exportCode(){ return "RPZ1."+b64enc(JSON.stringify(state)); }
+function importCode(code){
+  try{
+    code=(code||"").trim(); if(!code) return false;
+    if(code.startsWith("RPZ1.")) code=code.slice(5);
+    const obj=JSON.parse(b64dec(code));
+    if(!obj || typeof obj!=="object" || !obj.startDate) return false;
+    hydrate(JSON.stringify(obj)); save(); return true;
+  }catch(e){ return false; }
+}
+async function copyCode(){
+  const code=exportCode();
+  try{ await navigator.clipboard.writeText(code); toast("Sauvegarde copiée 📋 — colle-la en lieu sûr"); }
+  catch(e){ prompt("Copie ce code de sauvegarde :", code); }
+}
+function askRestore(){
+  const v=prompt("Colle ton code de sauvegarde (RPZ1.…) :");
+  if(v===null) return;
+  if(importCode(v)){ toast("Sauvegarde restaurée ✓"); $("#obOv").classList.remove("on"); renderAll(); }
+  else toast("Code invalide — vérifie la copie");
+}
 
 /* ---------- dates ---------- */
 function dkey(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
@@ -948,6 +1017,13 @@ function renderHero(){
   else if(st==="relapse"){ btn.textContent="Rechute notée — demain on repart"; btn.disabled=true; btn.classList.remove("done"); }
   else { btn.textContent="Valider ma journée  (+20 pts)"; btn.disabled=false; btn.classList.remove("done"); }
   $("#relapseLink").style.display = (st || done) ? "none" : "block";
+
+  // hier oublié ?
+  const yk=addDays(tk,-1);
+  $("#yesterdayBtn").style.display = (!done && yk>=state.startDate && !state.days[yk]) ? "flex" : "none";
+
+  // bannière stockage éphémère
+  $("#memWarn").style.display = store.mode==="memory" ? "block" : "none";
 
   // prochaine évolution
   const next = SPRITES[si+1];
@@ -1096,6 +1172,12 @@ function renderSettings(){
 
   $("#challengeInfo").textContent = `Défi de ${state.duration} jours commencé le ${fmtDate(state.startDate)}`
     + (state.name? ` — pacte signé par ${state.name}.`:".") + (state.completed? ` Défis complétés : ${state.completed}.`:"");
+
+  $("#storeInfo").textContent = store.mode==="local"
+    ? "Tes données sont enregistrées automatiquement sur cet appareil."
+    : store.mode==="cookie"
+    ? "Tes données sont enregistrées sur cet appareil (mode compatibilité)."
+    : "⚠️ Ce navigateur n'enregistre rien : copie ton code après chaque journée.";
 }
 
 /* ---------- évolution ---------- */
@@ -1124,6 +1206,23 @@ $("#checkinBtn").onclick=()=>{
   renderAll(); checkEvolution();
   if(metrics().clean>=state.duration) setTimeout(openWin, 1200);
 };
+$("#yesterdayBtn").onclick=()=>{
+  const yk=addDays(today(),-1);
+  if(state.days[yk] || yk<state.startDate) return;
+  state.days[yk]={status:"clean"};
+  state.xp+=20; save();
+  toast("Journée d'hier validée +20 pts ✓");
+  renderAll(); checkEvolution();
+  if(metrics().clean>=state.duration) setTimeout(openWin, 1200);
+};
+
+/* ---------- sauvegarde ---------- */
+$("#memCopy").onclick=copyCode;
+$("#memRestore").onclick=askRestore;
+$("#setCopy").onclick=copyCode;
+$("#setRestore").onclick=askRestore;
+$("#obRestore").onclick=askRestore;
+$("#permLink").onclick=(e)=>{ e.preventDefault(); const u=PERM_URL; try{ window.open(u,"_blank"); }catch(err){} prompt("Ouvre cette adresse dans ton navigateur et ajoute-la à ton écran d'accueil :", u); };
 
 let rlTrigger=null;
 function openRelapse(){ rlTrigger=null;
