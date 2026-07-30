@@ -2,7 +2,11 @@ name: Déployer sur GitHub Pages
 
 on:
   push:
-    branches: [claude/personal-challenge-app-hvhn6r, main, master]
+    branches:
+      - claude/personal-challenge-app-hvhn6r
+      - claude/pwa-august-challenges-my8hcl
+      - main
+      - master
   workflow_dispatch:
 
 permissions:

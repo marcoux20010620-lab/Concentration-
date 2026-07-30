@@ -1,3 +1,58 @@
+Ce dépôt contient deux applications web mobiles, indépendantes et 100 % hors-ligne.
+
+| App | Adresse | Quoi |
+| --- | --- | --- |
+| **Défis d'août** | `…/Concentration-/aout/` | 10 défis du mois d'août, débloqués une phase par semaine |
+| **Reprise** | `…/Concentration-/` | défi personnel 30 jours (version précédente) |
+
+---
+
+# Défis d'août
+
+Suivi des 10 habitudes du mois d'août avec une rampe d'accès douce : une nouvelle phase se débloque chaque semaine. Interface sombre, mobile-first, moins de 30 secondes par jour.
+
+## Sur le cell (le plus simple)
+
+1. Ouvrir **https://marcoux20010620-lab.github.io/Concentration-/aout/** dans Safari (iPhone) ou Chrome (Android).
+2. « Ajouter à l'écran d'accueil » / « Installer l'application ».
+3. C'est tout : l'app s'ouvre en plein écran, fonctionne hors-ligne, et tout se sauvegarde sur le téléphone.
+
+> Si la page ne répond pas encore : **Settings → Pages → Source → « GitHub Actions »**, puis relancer le workflow « Déployer sur GitHub Pages » (onglet Actions).
+
+## Les 4 phases
+
+| Phase | Jours | Défis actifs | Ce qui s'ajoute |
+| --- | --- | --- | --- |
+| 1 · Fondations | 1-7 | 4 | Zéro porn · Pas de masturbation · Faire son lit · Ménage 10 min |
+| 2 · Élan | 8-14 | 7 | Entraînement · Marche 20-30 min · Coupure du soir 30 min |
+| 3 · Clarté | 15-21 | 9 | Lecture 15-20 min · Moins de screen time |
+| 4 · Maîtrise | 22-31 | 10 | Moins de Xbox · la coupure du soir passe à 45 min |
+
+Les défis des semaines à venir restent visibles, grisés, dans « Déblocage prochain ».
+
+## Fonctionnalités
+
+- **Aujourd'hui** : date, `Jour X / 31`, phase en cours, anneau de progression et compteur ajusté à la phase (`4/4` en S1, `10/10` en S4). Flèches pour corriger une journée passée.
+- **Séries** : jours consécutifs et record pour chaque défi débloqué, avec bande des 12 derniers jours.
+- **Bilan** : grille du mois colorée (vert ≥ 80 %, orange 50-79 %, rouge < 50 %), taux de réussite, jours verts, journées parfaites, réussite par défi et feuille de route des phases. Un tap sur une journée l'ouvre pour l'ajuster.
+- **Réglages** : export / import JSON (fichier, copie ou partage), rappel d'installation, remise à zéro.
+- Micro-animations à chaque validation, confettis sur une journée parfaite, vibration légère.
+
+## Développement
+
+Source dans `app-aout/` (Vite + React + Tailwind CSS v4 + Lucide). Le build sort dans `aout/`, publié tel quel par GitHub Pages — il est versionné pour que le site fonctionne sans étape de compilation.
+
+```bash
+cd app-aout
+npm install
+npm run dev     # aperçu local
+npm run build   # régénère ../aout
+```
+
+Après un `npm run build`, penser à committer `aout/`. Si les fichiers de `aout/assets/` changent, incrémenter `CACHE` dans `app-aout/public/sw.js` pour forcer la mise à jour chez les appareils déjà installés.
+
+---
+
 # Reprise — Défi personnel 30 jours
 
 Application mobile (web, 100 % hors-ligne) pour tenir un défi de 30 jours sans porno ni apps de rencontre.
@@ -39,4 +94,12 @@ La sauvegarde automatique ne fonctionne que sur une vraie adresse web (pas dans 
 - `index.html` — version autonome complète, servie par GitHub Pages (à ouvrir directement).
 - `app.html` — même contenu au format Artifact (sans squelette HTML), source de la version hébergée sur claude.ai.
 - `manifest.webmanifest`, `sw.js`, `icon-*.png` — installation PWA et fonctionnement hors-ligne.
-- `.github/workflows/pages.yml` — déploiement automatique sur GitHub Pages.
+
+---
+
+# Organisation du dépôt
+
+- `index.html`, `app.html`, `manifest.webmanifest`, `sw.js`, `icon-*.png` — app **Reprise** (racine du site).
+- `app-aout/` — code source de l'app **Défis d'août** (Vite + React + Tailwind).
+- `aout/` — build publié de **Défis d'août**, généré par `npm run build` (à ne pas modifier à la main).
+- `.github/workflows/pages.yml` — déploiement automatique de tout le dépôt sur GitHub Pages.

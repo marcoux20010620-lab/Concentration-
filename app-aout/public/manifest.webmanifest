@@ -1,0 +1,18 @@
+{
+  "name": "Défis d'août",
+  "short_name": "Août",
+  "description": "10 défis, 4 phases, une nouvelle débloquée chaque semaine. 100 % local et hors-ligne.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#080f1e",
+  "theme_color": "#0f172a",
+  "lang": "fr-CA",
+  "dir": "ltr",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
