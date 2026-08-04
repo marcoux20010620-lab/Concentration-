@@ -1,6 +1,13 @@
-import { Award, CalendarCheck, Layers, Target } from "lucide-react";
+import { Award, CalendarCheck, Flame, Layers, Target } from "lucide-react";
 import { DAYS_IN_MONTH, PHASES, activeHabits, phaseOfDay } from "../data.js";
-import { WEEKDAY_LABELS, dayStats, firstWeekdayOffset, monthStats, tierOf } from "../lib.js";
+import {
+  WEEKDAY_LABELS,
+  dayStats,
+  firstWeekdayOffset,
+  monthStats,
+  streaksOf,
+  tierOf,
+} from "../lib.js";
 
 const TIER_STYLE = {
   green: "bg-emerald-500/85 text-emerald-950 border-emerald-300/40",
@@ -116,28 +123,42 @@ export default function CalendarView({ state, today, selected, onPick }) {
         </div>
       </section>
 
-      {/* Réussite par défi */}
-      <section className="space-y-2.5 rounded-3xl border border-white/10 bg-white/[0.03] p-4">
+      {/* Réussite et séries, par défi — une seule liste plutôt que deux écrans */}
+      <section className="space-y-3.5 rounded-3xl border border-white/10 bg-white/[0.03] p-4">
         <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-          Réussite par défi
+          Par défi
         </h2>
-        {stats.perHabit.map(({ habit, hits, days, ratio }) => (
-          <div key={habit.id} className="space-y-1">
-            <div className="flex items-baseline justify-between gap-2">
-              <span className="truncate text-[13px] text-slate-300">{habit.label}</span>
-              <span className="shrink-0 text-[12px] font-semibold text-slate-500">
-                {days > 0 ? `${hits}/${days}` : "à venir"}
-              </span>
+        {stats.perHabit.map(({ habit, hits, days, ratio }) => {
+          const { current, best } = streaksOf(state, habit, today);
+          return (
+            <div key={habit.id} className="space-y-1.5">
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="truncate text-[13px] text-slate-300">{habit.label}</span>
+                <span className="shrink-0 text-[12px] font-semibold tabular-nums text-slate-500">
+                  {days > 0 ? `${hits}/${days}` : "à venir"}
+                </span>
+              </div>
+              <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+                {/* Barre toujours verte : la longueur dit la réussite, pas la teinte. */}
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-sky-400 transition-[width] duration-700"
+                  style={{ width: `${Math.round(ratio * 100)}%` }}
+                />
+              </div>
+              {days > 0 && (
+                <p className="flex items-center gap-1 text-[11px] text-slate-500">
+                  <Flame
+                    className={"size-3 " + (current > 0 ? "text-orange-300" : "text-slate-600")}
+                  />
+                  <span className={current > 0 ? "font-semibold text-slate-300" : ""}>
+                    {current} en cours
+                  </span>
+                  · record {best}
+                </p>
+              )}
             </div>
-            <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
-              {/* Barre toujours verte : la longueur dit la réussite, pas la teinte. */}
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-sky-400 transition-[width] duration-700"
-                style={{ width: `${Math.round(ratio * 100)}%` }}
-              />
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </section>
 
       {/* Feuille de route des phases */}

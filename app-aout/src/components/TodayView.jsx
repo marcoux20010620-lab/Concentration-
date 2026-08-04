@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Lock, PartyPopper, Rocket, Sparkles } from "lucide-react";
 import { DAYS_IN_MONTH, PHASES, activeHabits, lockedHabits, phaseOfDay } from "../data.js";
-import { dayStats, daysUntilAugust, isChecked, longDate } from "../lib.js";
+import { dayStats, daysUntilAugust, isChecked, longDate, streaksOf } from "../lib.js";
 import HabitCard from "./HabitCard.jsx";
+import InstallBanner from "./InstallBanner.jsx";
 import ProgressRing from "./ProgressRing.jsx";
 
 const CONFETTI = Array.from({ length: 18 }, (_, i) => ({
@@ -31,7 +32,7 @@ function Celebration() {
   );
 }
 
-export default function TodayView({ state, today, day, setDay, onToggle }) {
+export default function TodayView({ state, today, day, setDay, onToggle, install }) {
   const phase = phaseOfDay(day);
   const active = activeHabits(day);
   const locked = lockedHabits(day);
@@ -41,6 +42,12 @@ export default function TodayView({ state, today, day, setDay, onToggle }) {
   const notStarted = today === 0;
   const monthOver = today > DAYS_IN_MONTH;
   const countdown = daysUntilAugust(state.year);
+
+  // Oublier de finir la veille est le principal décrochage : on le rattrape d'un tap.
+  // Journée vide = l'app n'a pas servi ce jour-là, inutile de le rappeler.
+  const yesterday = isToday && day >= 2 ? day - 1 : null;
+  const yStats = yesterday ? dayStats(state, yesterday) : null;
+  const showYesterday = yStats && yStats.done > 0 && yStats.done < yStats.total;
 
   const [party, setParty] = useState(false);
   const prev = useRef({ day, done });
@@ -119,6 +126,14 @@ export default function TodayView({ state, today, day, setDay, onToggle }) {
         </div>
       </header>
 
+      {install.showBanner && (
+        <InstallBanner
+          canPrompt={install.canPrompt}
+          install={install.install}
+          dismiss={install.dismiss}
+        />
+      )}
+
       {notStarted && (
         <div className="flex items-start gap-3 rounded-2xl border border-sky-400/20 bg-sky-500/[0.07] p-3.5">
           <Rocket className="mt-0.5 size-5 shrink-0 text-sky-300" />
@@ -182,6 +197,22 @@ export default function TodayView({ state, today, day, setDay, onToggle }) {
         </p>
       </section>
 
+      {showYesterday && (
+        <button
+          type="button"
+          onClick={() => setDay(yesterday)}
+          className="flex w-full items-center justify-between gap-2 rounded-2xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-left transition active:scale-[0.985]"
+        >
+          <span className="text-[13px] text-slate-400">
+            Hier :{" "}
+            <span className="font-semibold text-slate-200">
+              {yStats.done}/{yStats.total}
+            </span>
+          </span>
+          <span className="text-[13px] font-semibold text-sky-300">Compléter →</span>
+        </button>
+      )}
+
       {/* Défis actifs */}
       <section className="space-y-2">
         <h2 className="px-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
@@ -194,6 +225,7 @@ export default function TodayView({ state, today, day, setDay, onToggle }) {
             day={day}
             checked={isChecked(state, day, h.id)}
             onToggle={() => onToggle(day, h.id)}
+            streak={streaksOf(state, h, day).current}
           />
         ))}
         {phase.id === 4 && phase.extra && (

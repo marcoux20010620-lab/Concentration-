@@ -39,7 +39,7 @@ function Btn({ children, onClick, tone = "neutral" }) {
   );
 }
 
-export default function SettingsView({ state, onImport, onReset }) {
+export default function SettingsView({ state, onImport, onReset, install }) {
   const [flash, setFlash] = useState("");
   const [paste, setPaste] = useState("");
   const [showPaste, setShowPaste] = useState(false);
@@ -200,21 +200,34 @@ export default function SettingsView({ state, onImport, onReset }) {
         )}
       </Card>
 
-      <Card title="Installer sur l'écran d'accueil">
-        <div className="flex items-start gap-3">
-          <Info className="mt-0.5 size-5 shrink-0 text-sky-300" />
-          <div className="space-y-1.5 text-[13px] leading-relaxed text-slate-400">
-            <p>
-              <span className="font-semibold text-slate-200">iPhone :</span> Safari → bouton Partager
-              → « Sur l'écran d'accueil ».
-            </p>
-            <p>
-              <span className="font-semibold text-slate-200">Android :</span> Chrome → menu ⋮ →
-              « Installer l'application ».
-            </p>
-            <p>L'app s'ouvre alors en plein écran et fonctionne hors-ligne.</p>
-          </div>
-        </div>
+      <Card title="Écran d'accueil">
+        {install.installed ? (
+          <p className="flex items-center gap-2 text-[13px] text-emerald-200">
+            <Check className="size-4 shrink-0" /> L'app est installée. Elle fonctionne hors-ligne.
+          </p>
+        ) : (
+          <>
+            {install.canPrompt && (
+              <Btn onClick={install.install} tone="green">
+                <Download className="size-4" /> Installer l'app
+              </Btn>
+            )}
+            <div className="flex items-start gap-3">
+              <Info className="mt-0.5 size-5 shrink-0 text-sky-300" />
+              <div className="space-y-1.5 text-[13px] leading-relaxed text-slate-400">
+                <p>
+                  <span className="font-semibold text-slate-200">iPhone :</span> Safari → bouton
+                  Partager → « Sur l'écran d'accueil ».
+                </p>
+                <p>
+                  <span className="font-semibold text-slate-200">Android :</span> Chrome → menu ⋮ →
+                  « Installer l'application ».
+                </p>
+                <p>L'app s'ouvre alors en plein écran et fonctionne hors-ligne.</p>
+              </div>
+            </div>
+          </>
+        )}
       </Card>
 
       <Card title="Zone rouge">

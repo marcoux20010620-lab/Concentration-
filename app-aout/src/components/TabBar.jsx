@@ -1,8 +1,7 @@
-import { CalendarDays, Flame, ListChecks, Settings } from "lucide-react";
+import { CalendarDays, ListChecks, Settings } from "lucide-react";
 
 const TABS = [
   { id: "today", label: "Aujourd'hui", icon: ListChecks },
-  { id: "streaks", label: "Séries", icon: Flame },
   { id: "month", label: "Bilan", icon: CalendarDays },
   { id: "settings", label: "Réglages", icon: Settings },
 ];

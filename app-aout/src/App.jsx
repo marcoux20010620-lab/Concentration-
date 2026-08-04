@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import CalendarView from "./components/CalendarView.jsx";
 import SettingsView from "./components/SettingsView.jsx";
-import StreaksView from "./components/StreaksView.jsx";
 import TabBar from "./components/TabBar.jsx";
 import TodayView from "./components/TodayView.jsx";
+import { useInstall } from "./install.js";
 import {
   augustDayOf,
   clampDay,
@@ -18,6 +18,7 @@ export default function App() {
   const [state, setState] = useState(() => loadState(new Date().getFullYear()));
   const [day, setDay] = useState(() => clampDay(augustDayOf(state.year) || 1));
   const [tab, setTab] = useState("today");
+  const install = useInstall();
 
   useEffect(() => {
     saveState(state);
@@ -78,15 +79,16 @@ export default function App() {
               day={day}
               setDay={setDay}
               onToggle={onToggle}
+              install={install}
             />
           )}
-          {tab === "streaks" && <StreaksView state={state} today={today} />}
           {tab === "month" && (
             <CalendarView state={state} today={today} selected={day} onPick={pickDay} />
           )}
           {tab === "settings" && (
             <SettingsView
               state={state}
+              install={install}
               onImport={(next) => setState(next)}
               onReset={() => {
                 clearState();

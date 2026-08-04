@@ -1,5 +1,5 @@
 /* Défis d'août — service worker : l'app s'ouvre instantanément, même hors-ligne. */
-const CACHE = "defis-aout-v1";
+const CACHE = "defis-aout-v2";
 const ASSETS = [
   "./",
   "index.html",

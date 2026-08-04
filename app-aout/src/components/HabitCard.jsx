@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Lock } from "lucide-react";
+import { Flame, Lock } from "lucide-react";
 import { ACCENTS, noteFor } from "../data.js";
 
 /** Coche stylisée avec tracé animé. */
@@ -31,7 +31,7 @@ function Tick({ checked, burstKey }) {
   );
 }
 
-export default function HabitCard({ habit, day, checked, onToggle, locked, unlockWeek }) {
+export default function HabitCard({ habit, day, checked, onToggle, locked, unlockWeek, streak = 0 }) {
   const accent = ACCENTS[habit.accent];
   const Icon = habit.icon;
   const [burst, setBurst] = useState(0);
@@ -101,6 +101,14 @@ export default function HabitCard({ habit, day, checked, onToggle, locked, unloc
         </span>
         <span className="block truncate text-[13px] text-slate-500">{noteFor(habit, day)}</span>
       </span>
+
+      {/* La série n'apparaît qu'à partir de 2 jours : à 1 elle ne dit rien. */}
+      {streak >= 2 && (
+        <span className="flex shrink-0 items-center gap-0.5 text-[13px] font-bold text-orange-300">
+          <Flame className="size-3.5" />
+          {streak}
+        </span>
+      )}
 
       <span className={burst > 0 && checked ? "anim-pop" : undefined} key={`t${burst}`}>
         <Tick checked={checked} burstKey={burst} />

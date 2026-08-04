@@ -32,10 +32,11 @@ Les défis des semaines à venir restent visibles, grisés, dans « Déblocage p
 
 ## Fonctionnalités
 
-- **Aujourd'hui** : date, `Jour X / 31`, phase en cours, anneau de progression et compteur ajusté à la phase (`4/4` en S1, `10/10` en S4). Flèches pour corriger une journée passée.
-- **Séries** : jours consécutifs et record pour chaque défi débloqué, avec bande des 12 derniers jours.
-- **Bilan** : grille du mois colorée (vert ≥ 80 %, orange 50-79 %, rouge < 50 %), taux de réussite, jours verts, journées parfaites, réussite par défi et feuille de route des phases. Un tap sur une journée l'ouvre pour l'ajuster.
-- **Réglages** : export / import JSON (fichier, copie ou partage), rappel d'installation, remise à zéro.
+Trois onglets, pas plus.
+
+- **Aujourd'hui** : date, `Jour X / 31`, phase en cours, anneau de progression et compteur ajusté à la phase (`4/4` en S1, `10/10` en S4). La série en cours s'affiche directement sur chaque défi (dès 2 jours), donc aucun onglet à changer au quotidien. Flèches pour corriger une journée passée, et un rappel « Hier : 5/7 · Compléter » quand la veille a été commencée sans être finie.
+- **Bilan** : grille du mois colorée (vert ≥ 80 %, orange 50-79 %, rouge < 50 %), taux de réussite, jours verts, journées parfaites, feuille de route des phases, et une liste unique « Par défi » réunissant réussite, série en cours et record. Un tap sur une journée l'ouvre pour l'ajuster.
+- **Réglages** : bouton d'installation sur l'écran d'accueil, export / import JSON (fichier, copie ou partage), remise à zéro.
 - Micro-animations à chaque validation, confettis sur une journée parfaite, vibration légère.
 
 ## Développement
