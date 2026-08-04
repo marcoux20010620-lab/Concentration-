@@ -2,8 +2,10 @@ Ce dépôt contient deux applications web mobiles, indépendantes et 100 % hors-
 
 | App | Adresse | Quoi |
 | --- | --- | --- |
-| **Défis d'août** | `…/Concentration-/aout/` | 10 défis du mois d'août, débloqués une phase par semaine |
-| **Reprise** | `…/Concentration-/` | défi personnel 30 jours (version précédente) |
+| **Défis d'août** | `…/Concentration-/` | 10 défis du mois d'août, débloqués une phase par semaine |
+| **Reprise** | `…/Concentration-/reprise/` | défi personnel 30 jours (version précédente) |
+
+L'adresse courte du site redirige vers l'app d'août : c'est celle à ouvrir sur le téléphone.
 
 ---
 
@@ -11,13 +13,21 @@ Ce dépôt contient deux applications web mobiles, indépendantes et 100 % hors-
 
 Suivi des 10 habitudes du mois d'août avec une rampe d'accès douce : une nouvelle phase se débloque chaque semaine. Interface sombre, mobile-first, moins de 30 secondes par jour.
 
-## Sur le cell (le plus simple)
+## Sur le cell
 
-1. Ouvrir **https://marcoux20010620-lab.github.io/Concentration-/aout/** dans Safari (iPhone) ou Chrome (Android).
-2. « Ajouter à l'écran d'accueil » / « Installer l'application ».
-3. C'est tout : l'app s'ouvre en plein écran, fonctionne hors-ligne, et tout se sauvegarde sur le téléphone.
+1. Ouvrir **https://marcoux20010620-lab.github.io/Concentration-/**
+2. « Ajouter à l'écran d'accueil » (iPhone) ou le bouton « Installer » que l'app propose (Android).
+3. C'est tout : plein écran, hors-ligne, et tout reste sur le téléphone.
 
-> Si la page ne répond pas encore : **Settings → Pages → Source → « GitHub Actions »**, puis relancer le workflow « Déployer sur GitHub Pages » (onglet Actions).
+### Activer l'adresse (une seule fois)
+
+Tant que GitHub Pages n'est pas activé, l'adresse ci-dessus ne répond pas. Le plus court :
+
+1. **Settings → Pages** (`https://github.com/marcoux20010620-lab/Concentration-/settings/pages`)
+2. *Source* → **Deploy from a branch**
+3. *Branch* → **`claude/pwa-august-challenges-my8hcl`** + **`/ (root)`** → **Save**
+
+Aucun workflow à lancer : le site est en ligne après une minute. Le fichier `.nojekyll` à la racine garantit que `aout/assets/` est servi tel quel.
 
 ## Les 4 phases
 
@@ -92,15 +102,19 @@ La sauvegarde automatique ne fonctionne que sur une vraie adresse web (pas dans 
 
 ## Fichiers
 
-- `index.html` — version autonome complète, servie par GitHub Pages (à ouvrir directement).
-- `app.html` — même contenu au format Artifact (sans squelette HTML), source de la version hébergée sur claude.ai.
-- `manifest.webmanifest`, `sw.js`, `icon-*.png` — installation PWA et fonctionnement hors-ligne.
+Tous ses fichiers sont dans `reprise/` :
+
+- `reprise/index.html` — version autonome complète (à ouvrir directement).
+- `reprise/app.html` — même contenu au format Artifact (sans squelette HTML).
+- `reprise/manifest.webmanifest`, `reprise/sw.js`, `reprise/icon-*.png` — installation PWA et hors-ligne.
 
 ---
 
 # Organisation du dépôt
 
-- `index.html`, `app.html`, `manifest.webmanifest`, `sw.js`, `icon-*.png` — app **Reprise** (racine du site).
-- `app-aout/` — code source de l'app **Défis d'août** (Vite + React + Tailwind).
+- `index.html` — redirection de l'adresse courte vers `aout/`.
+- `app-aout/` — code source de **Défis d'août** (Vite + React + Tailwind).
 - `aout/` — build publié de **Défis d'août**, généré par `npm run build` (à ne pas modifier à la main).
-- `.github/workflows/pages.yml` — déploiement automatique de tout le dépôt sur GitHub Pages.
+- `reprise/` — app **Reprise**, complète et autonome.
+- `.nojekyll` — Pages sert le dépôt sans passer par Jekyll.
+- `.github/workflows/pages.yml` — déploiement par Actions, si cette source est choisie plutôt que la branche.
